@@ -15,6 +15,7 @@ Milestone 0 fixes the semantic, validation, pagination, and publication contract
 - `docs/ir-schema.md` - IR v1 conventions and relationships
 - `docs/grammar.md` - legal document and decision-cycle ordering
 - `docs/component-contracts.md` - publication behavior and splitting policy
+- `docs/design-system.md` - visual tokens, page grid, and component language
 - `docs/pagination-contract.md` - page-turn invariants and layout priorities
 - `docs/validation-catalog.md` - stable error/warning codes
 - `docs/rendering-environment.md` - provisional renderer and print contract

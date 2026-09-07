@@ -1,0 +1,8 @@
+excerpt:
+  - heading: TEACHING DECISION - ESCALATION
+    body: When would you escalate?
+    options: { A: Now, B: After another check, C: Choose another response }
+  - marker: DECISION BOUNDARY
+  - heading: TEACHING FOLLOW-UP
+    body: Compare the evidence threshold behind each response.
+

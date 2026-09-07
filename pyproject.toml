@@ -1,0 +1,17 @@
+[project]
+name = "decision-based-teaching-zine"
+version = "0.0.0"
+description = "Contract-first publishing system for decision-based teaching zines"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "jsonschema>=4.23,<5",
+  "pypdf>=5,<6",
+  "PyYAML>=6,<7",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

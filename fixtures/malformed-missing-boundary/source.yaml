@@ -1,0 +1,12 @@
+title: Missing Boundary
+subtitle: A Decision-Based Teaching Reconstruction
+excerpt:
+  - heading: WHAT DO YOU DO?
+    body: Choose a response.
+    options: { A: Pause, B: Continue }
+  - heading: WHAT THE RECORD SHOWS
+    evidence:
+      - provenance: DOCUMENTED
+        text: The event continued.
+expected_error: E203_BOUNDARY_MISSING
+

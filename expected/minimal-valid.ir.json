@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "source": { "adapter": "local_fixture", "path": "fixtures/minimal-valid/source.yaml" },
+  "document": {
+    "id": "a-sudden-change",
+    "title": "A Sudden Change",
+    "subtitle": "A Decision-Based Teaching Reconstruction",
+    "components": [
+      { "id": "how-to-read", "type": "how_to_read", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 4 }, "blocks": [{ "kind": "paragraph", "text": "Make each choice before turning the page." }] },
+      { "id": "provenance-vocabulary", "type": "provenance_vocabulary", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 6 }, "blocks": [{ "kind": "paragraph", "text": "DOCUMENTED, RECOLLECTED, UNKNOWN, and TEACHING SCENARIO." }] },
+      { "id": "content-note", "type": "content_note", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 8 }, "blocks": [{ "kind": "paragraph", "text": "This example discusses a workplace emergency." }] },
+      { "id": "intent", "type": "intent", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 10 }, "blocks": [{ "kind": "paragraph", "text": "Practice making a decision with incomplete information." }] },
+      { "id": "who-are-you", "type": "identity", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 12 }, "blocks": [{ "kind": "paragraph", "text": "You are the duty lead." }] },
+      { "id": "roles", "type": "roles", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 14 }, "blocks": [{ "kind": "paragraph", "text": "Duty lead; event coordinator; medical lead." }] },
+      { "id": "timeline", "type": "timeline", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 16 }, "blocks": [{ "kind": "paragraph", "text": "Alert; assessment; response; review." }] },
+      { "id": "part-1", "type": "part", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 18 }, "part_number": 1, "role": "The Duty Lead" },
+      { "id": "context-changed-conditions", "type": "context", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 19 }, "blocks": [{ "kind": "paragraph", "text": "Conditions have changed and the team needs direction." }] },
+      { "id": "plan-pause-activity", "type": "plan", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 21 }, "blocks": [{ "kind": "paragraph", "text": "The duty lead pauses activity when conditions become unsafe." }] },
+      { "id": "decision-choose-the-next-operational-step", "type": "decision", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 23 }, "mode": "historical", "blocks": [{ "kind": "paragraph", "text": "Choose the next operational step." }, { "kind": "option", "label": "A", "text": "Pause all activity." }, { "kind": "option", "label": "B", "text": "Continue while gathering more information." }, { "kind": "option", "label": "C", "text": "Choose another response." }] },
+      { "id": "boundary-choose-the-next-operational-step", "type": "boundary", "publication_class": "transform", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 30 }, "decision_id": "decision-choose-the-next-operational-step" },
+      { "id": "reveal-choose-the-next-operational-step", "type": "reveal", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 31 }, "decision_id": "decision-choose-the-next-operational-step", "blocks": [{ "kind": "evidence", "provenance": "documented", "text": "The team paused activity and reassessed conditions." }, { "kind": "evidence", "provenance": "recollected", "text": "Several participants remember the pause as gradual." }] },
+      { "id": "lesson-authority", "type": "teaching_lesson", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 38 }, "topic": "Authority", "blocks": [{ "kind": "paragraph", "text": "Clear authority matters when conditions change quickly." }] },
+      { "id": "look-back", "type": "reflection", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 40 }, "blocks": [{ "kind": "paragraph", "text": "What evidence most influenced your choice?" }] },
+      { "id": "lessons-authority", "type": "lessons", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 42 }, "topic": "Authority", "blocks": [{ "kind": "paragraph", "text": "Plans must identify who can pause work." }] },
+      { "id": "privacy-sources-contributions", "type": "privacy_sources_contributions", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 44 }, "blocks": [{ "kind": "paragraph", "text": "Roles are de-identified." }] },
+      { "id": "sources", "type": "sources", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 46 }, "blocks": [{ "kind": "paragraph", "text": "Example fixture; no external historical claim." }] }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "diagnostics": [
+    {
+      "code": "E203_BOUNDARY_MISSING",
+      "severity": "error",
+      "component_id": "decision-choose-a-response",
+      "message": "Historical decision requires exactly one boundary before its reveal."
+    }
+  ]
+}

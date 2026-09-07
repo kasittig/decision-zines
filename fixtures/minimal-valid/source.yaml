@@ -1,0 +1,46 @@
+title: A Sudden Change
+subtitle: A Decision-Based Teaching Reconstruction
+components:
+  - heading: HOW TO READ THIS
+    body: Make each choice before turning the page.
+  - heading: PROVENANCE VOCABULARY
+    body: DOCUMENTED, RECOLLECTED, UNKNOWN, and TEACHING SCENARIO.
+  - heading: CONTENT NOTE
+    body: This example discusses a workplace emergency.
+  - heading: INTENT
+    body: Practice making a decision with incomplete information.
+  - heading: WHO ARE YOU?
+    body: You are the duty lead.
+  - heading: ROLES IN THIS STORY
+    body: Duty lead; event coordinator; medical lead.
+  - heading: TIMELINE
+    body: Alert; assessment; response; review.
+  - heading: PART I - YOU ARE THE DUTY LEAD
+  - heading: CONTEXT
+    body: Conditions have changed and the team needs direction.
+  - heading: THE PLAN
+    body: The duty lead pauses activity when conditions become unsafe.
+  - heading: WHAT DO YOU DO?
+    body: Choose the next operational step.
+    options:
+      A: Pause all activity.
+      B: Continue while gathering more information.
+      C: Choose another response.
+  - marker: DECISION BOUNDARY
+  - heading: WHAT THE RECORD SHOWS
+    evidence:
+      - provenance: DOCUMENTED
+        text: The team paused activity and reassessed conditions.
+      - provenance: RECOLLECTED
+        text: Several participants remember the pause as gradual.
+  - heading: TEACHING LESSON - AUTHORITY
+    body: Clear authority matters when conditions change quickly.
+  - heading: LOOK BACK AT YOUR DECISIONS
+    body: What evidence most influenced your choice?
+  - heading: LESSONS - AUTHORITY
+    body: Plans must identify who can pause work.
+  - heading: PRIVACY, SOURCES & CONTRIBUTIONS
+    body: Roles are de-identified.
+  - heading: SOURCES
+    body: Example fixture; no external historical claim.
+

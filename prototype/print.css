@@ -1,0 +1,28 @@
+@page { size: 5.5in 8.5in; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; color: #171717; font-family: "Arial", sans-serif; }
+.page { width: 5.5in; height: 8.5in; padding: .42in .44in .36in; position: relative; page-break-after: always; overflow: hidden; }
+.page:last-child { page-break-after: auto; }
+header { display: flex; justify-content: space-between; border-bottom: 1.5pt solid #171717; padding-bottom: 5pt; font-size: 7.5pt; font-weight: 800; letter-spacing: .08em; }
+footer { position: absolute; bottom: .18in; left: 0; right: 0; text-align: center; font: 8pt serif; }
+h1 { font-family: Georgia, serif; font-size: 20pt; line-height: 1.04; margin: 4pt 0 10pt; }
+h2, .eyebrow { font-size: 8pt; letter-spacing: .11em; margin: 0 0 5pt; font-weight: 800; }
+p { font-family: Georgia, serif; font-size: 10pt; line-height: 1.28; margin: 0 0 8pt; }
+section { margin-top: 14pt; }
+.content-note { display: flex; gap: 9pt; margin: 13pt 0; padding: 9pt 10pt; background: #f2f2ed; border: 1pt solid #171717; }
+.content-note .icon { width: 20pt; height: 20pt; border-radius: 50%; background: #171717; color: white; display: grid; place-items: center; font-weight: 900; }
+.content-note b { font-size: 8pt; letter-spacing: .1em; }
+.content-note p { margin: 2pt 0 0; font-size: 9pt; }
+.plan { border: 1.5pt solid #171717; padding: 10pt 11pt 4pt; background: repeating-linear-gradient(-45deg, #fff, #fff 6pt, #f4f4f0 6pt, #f4f4f0 7pt); }
+.decision { margin-top: 16pt; }
+.decision ol { margin: 8pt 0 0 22pt; padding: 0; }
+.decision li { font-family: Georgia, serif; font-size: 9.5pt; line-height: 1.25; padding: 5pt 4pt; border-bottom: .6pt solid #aaa; }
+.commit { position: absolute; left: .44in; right: .44in; bottom: .45in; background: #171717; color: white; padding: 10pt 12pt; display: flex; justify-content: space-between; align-items: baseline; }
+.commit b { font-size: 8.5pt; letter-spacing: .08em; }
+.commit span { font-family: Georgia, serif; font-size: 8.5pt; }
+.reveal { margin-top: 28pt; }
+.evidence { border-left: 5pt solid #171717; padding: 8pt 10pt; margin: 13pt 0; background: #f2f2ed; }
+.evidence.recalled { border-left-style: double; }
+.evidence b { font-size: 7.5pt; letter-spacing: .12em; }
+.evidence p { margin: 4pt 0 0; }
+.lesson { margin-top: 24pt; border-top: 1pt solid #171717; padding-top: 10pt; }

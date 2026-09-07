@@ -19,7 +19,7 @@ The zine is an operational field guide with independent-editorial energy: direct
 | Body minimum | `9.5pt` | Binding readability floor |
 | Small minimum | `8pt` | Provenance and support labels |
 
-The prototype uses `Arial Narrow`, `Helvetica Neue`, and Arial fallbacks to explore proportions. Production fonts must be distributable, bundled, and print-tested before these tokens are frozen.
+The reference PDF embeds DejaVu Sans and DejaVu Sans Bold exclusively. The prototype therefore bundles and uses those same faces. Font files and their license notice live under `assets/fonts/`. Final sizes remain subject to physical print review.
 
 ## Page grid
 
@@ -63,4 +63,3 @@ The foundation timeline introduces the story phases. Scenario pages may repeat a
 - Is the alert tile friendly enough without trivializing the subject?
 - Does the decision page provide useful writing/consideration space rather than accidental emptiness?
 - Does the commit treatment remain visible near common printer non-printable margins?
-

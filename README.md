@@ -11,6 +11,7 @@ Milestone 0 fixes the semantic, validation, pagination, and publication contract
 ## Contents
 
 - `docs/source-format.md` - Google Docs recognition and normalization rules
+- `docs/normalized-markdown.md` - canonical build-input format
 - `docs/ir-schema.md` - IR v1 conventions and relationships
 - `docs/grammar.md` - legal document and decision-cycle ordering
 - `docs/component-contracts.md` - publication behavior and splitting policy
@@ -48,7 +49,8 @@ If materials disagree, precedence is:
 ## Frozen decisions
 
 - Google Docs remains the editorial source of truth.
-- Adapters emit normalized source; the publication core never reads Google Docs directly.
+- Adapters emit versioned `.zine.md` artifacts; the publication core never reads Google Docs directly.
+- Normalized Markdown is independently buildable, reviewable, and suitable for direct authoring.
 - Ambiguity produces diagnostics, not silent inference.
 - Every standard decision has exactly one reveal container.
 - A boundary ends the decision page; its reveal is the first substantive component on the next page.

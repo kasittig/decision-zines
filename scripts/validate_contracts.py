@@ -70,7 +70,18 @@ def main() -> int:
         if placement["reveal_page"] != placement["decision_page"] + 1:
             fail(f"Reveal is not on the next page for {decision_id}")
 
-    print(f"Validated {len(json_files)} JSON files and core Milestone 0 invariants.")
+    markdown = (ROOT / "fixtures" / "minimal-valid" / "document.zine.md").read_text(encoding="utf-8")
+    if not markdown.startswith("---\nformat: decision-teaching-zine\n"):
+        fail("Normalized Markdown fixture lacks canonical front matter")
+    for directive in ("decision", "boundary", "evidence"):
+        if f"::: {directive} " not in markdown:
+            fail(f"Normalized Markdown fixture lacks {directive} directive")
+    if ":::: reveal " not in markdown:
+        fail("Normalized Markdown fixture lacks nested reveal directive")
+    if 'decision="decision-choose-the-next-operational-step"' not in markdown:
+        fail("Normalized Markdown fixture lacks explicit decision relationships")
+
+    print(f"Validated {len(json_files)} JSON files, normalized Markdown, and core Milestone 0 invariants.")
     return 0
 
 
@@ -80,4 +91,3 @@ if __name__ == "__main__":
     except AssertionError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         raise SystemExit(1)
-

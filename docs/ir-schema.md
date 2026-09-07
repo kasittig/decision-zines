@@ -6,7 +6,9 @@ The IR is an ordered semantic document. Its JSON representation must validate ag
 
 - `schema_version`: exactly `1.0` for this contract.
 - `document`: stable document ID, title, subtitle, and ordered components.
-- `source`: adapter name and optional source document ID.
+- `source`: adapter name plus normalized Markdown path and optional upstream document ID.
+
+The Markdown-to-IR parser is the only production entry point to IR. Google Docs import ends when it emits canonical `.zine.md` and its optional source-map sidecar.
 
 ## Component invariants
 
@@ -37,4 +39,3 @@ A reveal is one container with one or more evidence blocks. Each evidence block 
 ## Evolution
 
 Additive optional fields may appear in a 1.x schema. Breaking changes require a new major schema version and migration. Unknown component types fail v1 validation rather than falling back to generic prose.
-

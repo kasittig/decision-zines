@@ -15,6 +15,8 @@ Before changing behavior, read `README.md` and every contract in `docs/`. Normat
 - Treat `DEVELOPMENT NOTES` and everything following it as unpublished editorial content.
 - Do not silently guess when Google Docs structure is ambiguous; emit a diagnostic.
 - Keep Google Docs integration behind an adapter boundary.
+- Treat `.zine.md` as the canonical publication-core input and preserve canonical serialization.
+- Ensure builds from normalized Markdown require neither Google credentials nor network access.
 
 ## Change workflow
 
@@ -31,4 +33,3 @@ Do not regenerate approved visual baselines without explaining why the output ch
 ## Scope discipline
 
 Milestone 0 contains contracts and a proof of concept. Production parsing, rendering, Google APIs, and booklet imposition belong in later milestones. Propose contract changes explicitly rather than smuggling policy decisions into code.
-

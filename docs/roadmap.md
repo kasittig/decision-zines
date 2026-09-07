@@ -9,7 +9,8 @@
 
 ## Milestone 1 - Local publishing core
 
-- Parse normalized local fixtures into IR.
+- Parse canonical `.zine.md` fixtures into IR.
+- Build directly from normalized Markdown without credentials or network access.
 - Validate structural and relationship rules.
 - Render deterministic reader PDFs from the shared component library.
 - Generate page maps, contact sheets, and booklet-imposed PDFs.
@@ -18,7 +19,8 @@
 ## Milestone 2 - Google Docs adapter
 
 - Read heading styles, paragraphs, lists, and source positions.
-- Normalize Google Docs into the same source boundary as local fixtures.
+- Emit canonical, versioned `.zine.md` plus a source-map sidecar.
+- Make repeated imports stable and reviewable in Git diffs.
 - Produce actionable diagnostics linked to source locations.
 - Confirm that adapter behavior does not leak into the publication core.
 
@@ -27,4 +29,3 @@
 - Add review reports and visual-regression approval.
 - Define schema migrations and compatibility guarantees.
 - Package the `zine build` command for reproducible local and CI use.
-

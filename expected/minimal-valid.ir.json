@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "source": { "adapter": "local_fixture", "path": "fixtures/minimal-valid/source.yaml" },
+  "source": { "adapter": "normalized_markdown", "path": "fixtures/minimal-valid/document.zine.md" },
   "document": {
     "id": "a-sudden-change",
     "title": "A Sudden Change",

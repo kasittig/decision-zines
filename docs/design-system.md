@@ -41,7 +41,7 @@ The decision/commit axis is the expressive center. All other components remain r
 
 ## Component language
 
-- **Content note:** gray horizontal field with a slightly rotated black alert tile. Friendly and conspicuous, not a normal heading.
+- **Content note:** heavy outlined field with the standard DejaVu warning-triangle glyph, a black reverse label, and a gray message cell. Conspicuous and familiar, not a normal heading.
 - **Context:** open text with a heavy left rule, representing present conditions and available knowledge.
 - **Plan:** enclosed gray field explicitly glossed as what the system expected.
 - **Decision:** large compressed headline followed by evenly weighted ruled options.

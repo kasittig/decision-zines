@@ -10,10 +10,10 @@ html,body { margin:0; padding:0; color:var(--ink); background:var(--paper); font
 h1 { font-size:22pt; line-height:1.02; letter-spacing:-.01em; margin:3pt 0 10pt; font-weight:700; }
 h2 { font-size:8.2pt; line-height:1.12; letter-spacing:.035em; margin:0 0 4pt; font-weight:700; }
 p { font-size:9.6pt; line-height:1.26; margin:0; }
-.content-note { display:grid; grid-template-columns:25pt 1fr; gap:9pt; align-items:center; margin:10pt 0 12pt; padding:7pt var(--pad); background:var(--wash); border-top:var(--rule) solid var(--ink); border-bottom:var(--rule) solid var(--ink); }
-.alert-icon { width:22pt; height:22pt; display:grid; place-items:center; background:var(--ink); color:var(--paper); font-size:13pt; line-height:1; font-weight:900; transform:rotate(-3deg); }
-.content-note b { font-size:7.8pt; letter-spacing:.075em; }
-.content-note p { margin-top:2pt; font-size:8.7pt; line-height:1.18; }
+.content-note { display:grid; grid-template-columns:38pt 85pt 1fr; align-items:stretch; margin:10pt 0 12pt; padding:0; background:var(--wash); border:2pt solid var(--ink); }
+.alert-icon { display:grid; place-items:center; color:var(--ink); background:var(--paper); border-right:var(--rule) solid var(--ink); font-size:22pt; line-height:1; font-weight:700; }
+.content-note b { display:flex; align-items:center; padding:8pt 9pt; color:var(--paper); background:var(--ink); font-size:7.8pt; line-height:1.08; letter-spacing:.045em; }
+.content-note p { display:flex; align-items:center; padding:8pt 10pt; font-size:8.7pt; line-height:1.2; }
 .context { border-left:var(--heavy) solid var(--ink); padding-left:9pt; margin:11pt 0; }
 .plan { border:var(--rule) solid var(--ink); background:var(--wash); padding:8pt var(--pad); margin:11pt 0 13pt; }
 .plan h2::after { content:"  /  WHAT THE SYSTEM EXPECTED"; font-weight:500; letter-spacing:.02em; }

@@ -3,10 +3,13 @@
 The notation `?`, `*`, and `+` means optional, zero-or-more, and one-or-more.
 
 ```text
-document = foundation part+ closing
+input_document = variable_foundation part+ variable_closing
+expanded_document = foundation part+ closing
 
 foundation = title subtitle how_to_read provenance_vocabulary
              content_note? intent identity roles timeline
+
+variable_foundation = content_note? intent identity roles timeline
 
 part = part_header part_component*
 
@@ -19,7 +22,10 @@ teaching_cycle = teaching_decision boundary teaching_followup post_reveal_compon
 post_reveal_component = teaching_lesson | teaching_question | supporting
 
 closing = reflection lessons privacy_sources_contributions sources
+variable_closing = reflection lessons specific_sources?
 ```
+
+The standard template supplies subtitle, `how_to_read`, `provenance_vocabulary`, `play_again`, `privacy_sources_contributions`, and the base `sources` component. Input grammar is validated before expansion; complete document grammar is validated afterward.
 
 ## Decision-cycle rules
 
@@ -40,4 +46,3 @@ closing = reflection lessons privacy_sources_contributions sources
 ## Non-content markers
 
 A boundary is a transform-class node. Pinned IDs are metadata. Development notes are editorial. None may be printed verbatim by a conforming renderer.
-

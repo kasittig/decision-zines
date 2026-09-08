@@ -36,6 +36,8 @@ def main() -> int:
     ir = load_json(ROOT / "expected" / "minimal-valid.ir.json")
     if ir.get("schema_version") != "1.0":
         fail("Expected IR must use schema version 1.0")
+    if (ir["document"].get("template"), ir["document"].get("template_version")) != ("standard", "1.0"):
+        fail("Expected IR must record standard template version 1.0")
 
     components = ir["document"]["components"]
     ids = [component["id"] for component in components]
@@ -49,7 +51,7 @@ def main() -> int:
     required = {
         "how_to_read", "provenance_vocabulary", "intent", "identity",
         "roles", "timeline", "part", "decision", "boundary", "reveal",
-        "reflection", "lessons", "privacy_sources_contributions", "sources",
+        "reflection", "lessons", "play_again", "privacy_sources_contributions", "sources",
     }
     missing = sorted(required - types)
     if missing:
@@ -80,6 +82,15 @@ def main() -> int:
         fail("Normalized Markdown fixture lacks nested reveal directive")
     if 'decision="decision-choose-the-next-operational-step"' not in markdown:
         fail("Normalized Markdown fixture lacks explicit decision relationships")
+    for injected in ("::: how-to-read", "::: provenance-vocabulary", "::: privacy-sources-contributions"):
+        if injected in markdown:
+            fail(f"Normalized Markdown duplicates template component: {injected}")
+    if "::: specific-sources " not in markdown:
+        fail("Normalized Markdown fixture lacks zine-specific sources")
+    template = (ROOT / "templates" / "standard-v1.yaml").read_text(encoding="utf-8")
+    for required_text in ("template_id: standard", 'template_version: "1.0"', "HOW TO READ THIS", "PROVENANCE VOCABULARY", "PRIVACY, SOURCES & CONTRIBUTIONS", "SOURCES"):
+        if required_text not in template:
+            fail(f"Standard template lacks required content: {required_text}")
 
     print(f"Validated {len(json_files)} JSON files, normalized Markdown, and core Milestone 0 invariants.")
     return 0

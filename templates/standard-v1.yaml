@@ -1,0 +1,65 @@
+template_id: standard
+template_version: "1.0"
+
+document_defaults:
+  subtitle: A Decision-Based Teaching Reconstruction
+
+injected_components:
+  before_content:
+    - id: how-to-read
+      type: how_to_read
+      publication_class: published
+      heading: HOW TO READ THIS
+      blocks:
+        - kind: paragraph
+          text: Make each decision before continuing. After each decision, turn the page to learn what the surviving record establishes and what remains uncertain.
+
+    - id: provenance-vocabulary
+      type: provenance_vocabulary
+      publication_class: published
+      heading: PROVENANCE VOCABULARY
+      blocks:
+        - kind: paragraph
+          text: "DOCUMENTED: Supported by a contemporaneous, public, or otherwise identified source at the level claimed."
+        - kind: paragraph
+          text: "RECOLLECTED: Participant or contributor recollection not independently verified at the level claimed."
+        - kind: paragraph
+          text: "UNKNOWN: A gap the surviving reconstruction does not establish."
+        - kind: paragraph
+          text: "TEACHING SCENARIO: Generalized, normalized, or constructed material used to make the exercise understandable or playable."
+
+  after_content:
+    - id: play-again
+      type: play_again
+      publication_class: published
+      heading: PLAY AGAIN
+      blocks:
+        - kind: paragraph
+          text: Return to one decision and change your answer. Ask which risk the alternative accepts instead.
+
+    - id: privacy-sources-contributions
+      type: privacy_sources_contributions
+      publication_class: published
+      heading: PRIVACY, SOURCES & CONTRIBUTIONS
+      blocks:
+        - kind: paragraph
+          text: This teaching text is de-identified, not anonymous. Identifying details and organizational terminology may be generalized while preserving the decisions, constraints, evidence distinctions, and outcomes needed for the exercise.
+
+    - id: sources
+      type: sources
+      publication_class: published
+      heading: SOURCES
+      blocks:
+        - kind: paragraph
+          text: Sources include public records, contemporaneous documents, and participant recollections as identified throughout. Zine-specific source entries follow when supplied.
+
+component_defaults:
+  decision:
+    append_option_unless_present: Choose another response.
+  boundary:
+    reader_copy:
+      label: COMMIT BEFORE YOU CONTINUE.
+      instruction: Mark your choice, then turn the page.
+
+warnings:
+  missing_specific_sources: W601_ZINE_SOURCES_MISSING

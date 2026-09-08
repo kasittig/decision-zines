@@ -4,7 +4,7 @@
 
 The Google Docs adapter converts a Google Doc into versioned normalized Markdown (`.zine.md`). Local fixtures and direct-authored Markdown enter at that same boundary. Downstream stages must not depend on Google APIs, document styles, or editor-specific identifiers. The complete Markdown syntax is defined in `normalized-markdown.md`.
 
-Normalized Markdown is persisted as a build artifact rather than passed as an invisible in-memory representation. It can be inspected, diffed, committed, validated, and rebuilt independently of Google Docs.
+Normalized Markdown is persisted as a build artifact rather than passed as an invisible in-memory representation. It can be inspected, diffed, committed, validated, and rebuilt independently of Google Docs. Shared boilerplate is omitted from this artifact and injected from the exact template version declared in front matter.
 
 ## Recognition hierarchy
 

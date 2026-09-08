@@ -1,11 +1,11 @@
 # Normalized Markdown Contract
 
-Normalized Markdown is the canonical, durable input to the publication core. It is a first-class build artifact: human-readable, versioned, diffable, independently buildable, and suitable for regression fixtures.
+Normalized Markdown is the canonical, durable input to the publication core. It is a first-class build artifact: human-readable, versioned, diffable, independently buildable, and suitable for regression fixtures. It contains zine-specific semantic content; shared publication boilerplate belongs to a versioned template.
 
 ```text
-Google Doc -> adapter -> normalized Markdown -> IR -> HTML/CSS -> PDF
-                            ^
-Direct Markdown authoring ---+
+Google Doc -> adapter -> normalized Markdown --+-- template expansion -> IR -> HTML/CSS -> PDF
+                            ^                  |
+Direct Markdown authoring ---+       versioned template
 ```
 
 The Google Doc remains the editorial source of truth when one exists. The normalized Markdown file records exactly what the adapter understood. Editing it does not silently update its source Google Doc.
@@ -14,7 +14,7 @@ The Google Doc remains the editorial source of truth when one exists. The normal
 
 - UTF-8 text with LF line endings.
 - Extension `.zine.md`.
-- YAML front matter containing `format`, `version`, `id`, `title`, and `subtitle`.
+- YAML front matter containing `format`, `version`, `template`, `template_version`, `id`, and `title`.
 - ATX headings (`#`) only; no setext headings.
 - Semantic blocks use fenced directives beginning with at least three colons. A directive containing nested directives must use a longer outer fence than its children.
 - Raw HTML is forbidden.
@@ -26,12 +26,34 @@ format: decision-teaching-zine
 version: "1.0"
 id: sudden-change
 title: A Sudden Change
-subtitle: A Decision-Based Teaching Reconstruction
+template: standard
+template_version: "1.0"
 source:
   adapter: google_docs
   document_id: example-id
 ---
 ```
+
+The standard subtitle is supplied by the template. An input may override a template field only when the template explicitly marks it as overridable.
+
+## Shared versus zine-specific content
+
+Do not repeat these standard-template components in input Markdown:
+
+- subtitle;
+- `HOW TO READ THIS`;
+- provenance vocabulary definitions;
+- decision-boundary reader copy;
+- the default `Choose another response.` option;
+- `PLAY AGAIN` copy;
+- shared privacy/source/contribution language;
+- the standard Sources introduction.
+
+Input Markdown supplies the content that varies: title, content-note details, intent/core question, identity, roles, timeline phases, scenario components, lessons, zine-specific source entries, and special privacy or contribution disclosures.
+
+Zine-specific sources use a `specific-sources` directive. During expansion, its entries are appended to the template-provided `sources` component; `specific-sources` does not survive as a separate IR component.
+
+Template expansion produces the complete IR. A duplicated fixed component in the input is an error rather than a second copy in the output.
 
 ## Component syntax
 
@@ -99,4 +121,4 @@ The adapter emits components in source order, uses lowercase directive names and
 
 ## Build behavior
 
-`zine build example.zine.md` must work without Google credentials or network access. A Google import and a direct Markdown build converge at the same Markdown-to-IR parser. Generated Markdown should normally be committed alongside approved source snapshots used for publication or regression testing.
+`zine build example.zine.md` must work without Google credentials or network access. A Google import and a direct Markdown build converge at the same Markdown-to-IR parser. The build resolves the exact template ID/version from front matter, expands defaults, and then validates the complete IR. Generated Markdown should normally be committed alongside approved source snapshots used for publication or regression testing.

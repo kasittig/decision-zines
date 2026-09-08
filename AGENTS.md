@@ -16,6 +16,7 @@ Before changing behavior, read `README.md` and every contract in `docs/`. Normat
 - Do not silently guess when Google Docs structure is ambiguous; emit a diagnostic.
 - Keep Google Docs integration behind an adapter boundary.
 - Treat `.zine.md` as the canonical publication-core input and preserve canonical serialization.
+- Keep shared copy in versioned templates; do not duplicate fixed components in zine inputs.
 - Ensure builds from normalized Markdown require neither Google credentials nor network access.
 
 ## Change workflow

@@ -5,9 +5,11 @@
     "id": "a-sudden-change",
     "title": "A Sudden Change",
     "subtitle": "A Decision-Based Teaching Reconstruction",
+    "template": "standard",
+    "template_version": "1.0",
     "components": [
-      { "id": "how-to-read", "type": "how_to_read", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 4 }, "blocks": [{ "kind": "paragraph", "text": "Make each choice before turning the page." }] },
-      { "id": "provenance-vocabulary", "type": "provenance_vocabulary", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 6 }, "blocks": [{ "kind": "paragraph", "text": "DOCUMENTED, RECOLLECTED, UNKNOWN, and TEACHING SCENARIO." }] },
+      { "id": "how-to-read", "type": "how_to_read", "publication_class": "published", "source": { "path": "templates/standard-v1.yaml" }, "blocks": [{ "kind": "paragraph", "text": "Make each decision before continuing. After each decision, turn the page to learn what the surviving record establishes and what remains uncertain." }] },
+      { "id": "provenance-vocabulary", "type": "provenance_vocabulary", "publication_class": "published", "source": { "path": "templates/standard-v1.yaml" }, "blocks": [{ "kind": "paragraph", "text": "DOCUMENTED: Supported by a contemporaneous, public, or otherwise identified source at the level claimed." }, { "kind": "paragraph", "text": "RECOLLECTED: Participant or contributor recollection not independently verified at the level claimed." }, { "kind": "paragraph", "text": "UNKNOWN: A gap the surviving reconstruction does not establish." }, { "kind": "paragraph", "text": "TEACHING SCENARIO: Generalized, normalized, or constructed material used to make the exercise understandable or playable." }] },
       { "id": "content-note", "type": "content_note", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 8 }, "blocks": [{ "kind": "paragraph", "text": "This example discusses a workplace emergency." }] },
       { "id": "intent", "type": "intent", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 10 }, "blocks": [{ "kind": "paragraph", "text": "Practice making a decision with incomplete information." }] },
       { "id": "who-are-you", "type": "identity", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 12 }, "blocks": [{ "kind": "paragraph", "text": "You are the duty lead." }] },
@@ -22,8 +24,9 @@
       { "id": "lesson-authority", "type": "teaching_lesson", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 38 }, "topic": "Authority", "blocks": [{ "kind": "paragraph", "text": "Clear authority matters when conditions change quickly." }] },
       { "id": "look-back", "type": "reflection", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 40 }, "blocks": [{ "kind": "paragraph", "text": "What evidence most influenced your choice?" }] },
       { "id": "lessons-authority", "type": "lessons", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 42 }, "topic": "Authority", "blocks": [{ "kind": "paragraph", "text": "Plans must identify who can pause work." }] },
-      { "id": "privacy-sources-contributions", "type": "privacy_sources_contributions", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 44 }, "blocks": [{ "kind": "paragraph", "text": "Roles are de-identified." }] },
-      { "id": "sources", "type": "sources", "publication_class": "published", "source": { "path": "fixtures/minimal-valid/source.yaml", "line": 46 }, "blocks": [{ "kind": "paragraph", "text": "Example fixture; no external historical claim." }] }
+      { "id": "play-again", "type": "play_again", "publication_class": "published", "source": { "path": "templates/standard-v1.yaml" }, "blocks": [{ "kind": "paragraph", "text": "Return to one decision and change your answer. Ask which risk the alternative accepts instead." }] },
+      { "id": "privacy-sources-contributions", "type": "privacy_sources_contributions", "publication_class": "published", "source": { "path": "templates/standard-v1.yaml" }, "blocks": [{ "kind": "paragraph", "text": "This teaching text is de-identified, not anonymous. Identifying details and organizational terminology may be generalized while preserving the decisions, constraints, evidence distinctions, and outcomes needed for the exercise." }] },
+      { "id": "sources", "type": "sources", "publication_class": "published", "source": { "path": "templates/standard-v1.yaml" }, "blocks": [{ "kind": "paragraph", "text": "Sources include public records, contemporaneous documents, and participant recollections as identified throughout. Zine-specific source entries follow when supplied." }, { "kind": "paragraph", "text": "Example fixture; no external historical claim." }] }
     ]
   }
 }

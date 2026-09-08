@@ -7,6 +7,8 @@ Errors stop publication. Warnings permit a draft build and require review. Advis
 | E001_SCHEMA_INVALID | Error | IR fails its versioned JSON Schema |
 | E101_REQUIRED_FOUNDATION_MISSING | Error | Required foundation component absent |
 | E102_REQUIRED_CLOSING_MISSING | Error | Required closing component absent |
+| E103_TEMPLATE_NOT_FOUND | Error | Requested template ID/version is unavailable |
+| E104_FIXED_COMPONENT_OVERRIDDEN | Error | Input repeats or overrides a non-overridable template component |
 | E201_DECISION_PROMPT_MISSING | Error | Decision has no prompt |
 | E202_DECISION_RESPONSE_MISSING | Error | Decision has neither options nor free-response mechanism |
 | E203_BOUNDARY_MISSING | Error | Decision has no boundary |
@@ -25,9 +27,9 @@ Errors stop publication. Warnings permit a draft build and require review. Advis
 | W201_PLAN_ENDS_WITHOUT_PLAN | Warning | Plan-end marker has no earlier relevant plan |
 | W301_DEVELOPMENT_NOTES_PREMATURE | Warning | Required content appears only after terminal development notes |
 | W401_BAD_COMPONENT_SPLIT | Warning | Split is legal but violates preferred fragmentation |
+| W601_ZINE_SOURCES_MISSING | Warning | Template Sources copy rendered without zine-specific source entries |
 | A401_ORPHAN_RISK | Advisory | Heading lacks the required following visual content |
 | A402_DENSE_PAGE | Advisory | Occupied-area threshold exceeds configured review level |
 | A403_SPARSE_PAGE | Advisory | Non-purposeful page falls below configured occupied-area threshold |
 
 Each diagnostic contains `code`, `severity`, `message`, `component_id` when known, and the richest available source location. Threshold values for density and raster tolerance belong to a versioned build configuration and must be recorded in build metadata.
-

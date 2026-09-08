@@ -8,7 +8,9 @@ The IR is an ordered semantic document. Its JSON representation must validate ag
 - `document`: stable document ID, title, subtitle, and ordered components.
 - `source`: adapter name plus normalized Markdown path and optional upstream document ID.
 
-The Markdown-to-IR parser is the only production entry point to IR. Google Docs import ends when it emits canonical `.zine.md` and its optional source-map sidecar.
+The Markdown-to-IR parser plus template expander is the only production entry point to IR. Google Docs import ends when it emits canonical `.zine.md` and its optional source-map sidecar. The resulting IR records the exact template ID and version used.
+
+Injected components receive source metadata identifying their template path and version. Authored components retain Markdown or upstream Google Docs locations. Renderers do not distinguish between injected and authored components after expansion except for diagnostics.
 
 ## Component invariants
 

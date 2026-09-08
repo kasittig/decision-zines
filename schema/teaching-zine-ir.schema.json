@@ -20,11 +20,13 @@
     "document": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "subtitle", "components"],
+      "required": ["id", "title", "subtitle", "template", "template_version", "components"],
       "properties": {
         "id": { "$ref": "#/$defs/id" },
         "title": { "type": "string", "minLength": 1 },
         "subtitle": { "const": "A Decision-Based Teaching Reconstruction" },
+        "template": { "type": "string", "minLength": 1 },
+        "template_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
         "components": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/component" } }
       }
     }
@@ -62,7 +64,7 @@
       "properties": {
         "id": { "$ref": "#/$defs/id" },
         "type": {
-          "enum": ["how_to_read", "provenance_vocabulary", "content_note", "intent", "identity", "roles", "timeline", "part", "context", "plan", "decision", "boundary", "reveal", "plan_ends", "unknown", "teaching_followup", "teaching_lesson", "teaching_question", "supporting", "reflection", "lessons", "privacy_sources_contributions", "sources"]
+          "enum": ["how_to_read", "provenance_vocabulary", "content_note", "intent", "identity", "roles", "timeline", "part", "context", "plan", "decision", "boundary", "reveal", "plan_ends", "unknown", "teaching_followup", "teaching_lesson", "teaching_question", "supporting", "reflection", "lessons", "play_again", "privacy_sources_contributions", "sources"]
         },
         "publication_class": { "enum": ["published", "transform", "metadata", "editorial"] },
         "source": { "$ref": "#/$defs/location" },

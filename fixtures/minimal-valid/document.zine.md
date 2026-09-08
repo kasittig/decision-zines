@@ -3,18 +3,11 @@ format: decision-teaching-zine
 version: "1.0"
 id: a-sudden-change
 title: A Sudden Change
-subtitle: A Decision-Based Teaching Reconstruction
+template: standard
+template_version: "1.0"
 source:
   adapter: local_fixture
 ---
-
-::: how-to-read {#how-to-read}
-Make each choice before turning the page.
-:::
-
-::: provenance-vocabulary {#provenance-vocabulary}
-DOCUMENTED, RECOLLECTED, UNKNOWN, and TEACHING SCENARIO.
-:::
 
 ::: content-note {#content-note}
 This example discusses a workplace emergency.
@@ -82,10 +75,6 @@ What evidence most influenced your choice?
 Plans must identify who can pause work.
 :::
 
-::: privacy-sources-contributions {#privacy-sources-contributions}
-Roles are de-identified.
-:::
-
-::: sources {#sources}
-Example fixture; no external historical claim.
+::: specific-sources {#specific-sources}
+- Example fixture; no external historical claim.
 :::

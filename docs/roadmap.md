@@ -10,6 +10,7 @@
 ## Milestone 1 - Local publishing core
 
 - Parse canonical `.zine.md` fixtures into IR.
+- Resolve and expand versioned publication templates before complete-document validation.
 - Build directly from normalized Markdown without credentials or network access.
 - Validate structural and relationship rules.
 - Render deterministic reader PDFs from the shared component library.

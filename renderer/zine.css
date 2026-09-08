@@ -10,32 +10,32 @@
   --gray-70:#4d4d4d;
 }
 * { box-sizing:border-box; }
-html,body { margin:0; color:var(--ink); background:var(--paper); font-family:"DejaVu Sans",sans-serif; font-size:9.5pt; line-height:1.28; }
+html,body { margin:0; color:var(--ink); background:var(--paper); font-family:"DejaVu Sans",sans-serif; font-size:10.5pt; line-height:1.35; }
 body { counter-reset: decision; }
-p { margin:0 0 7pt; orphans:3; widows:3; }
+p { margin:0 0 8pt; orphans:3; widows:3; }
 ul,ol { margin:5pt 0 9pt 16pt; padding:0; }
 li { margin:0 0 4pt; }
 h1,h2,h3 { break-after:avoid; }
 .cover { height:7.64in; display:flex; flex-direction:column; justify-content:flex-end; break-after:page; }
-.cover .kicker { font-size:8pt; font-weight:700; letter-spacing:.06em; border-bottom:3pt solid var(--ink); padding-bottom:6pt; }
+.cover .kicker { font-size:8.5pt; font-weight:700; letter-spacing:.04em; border-bottom:3pt solid var(--ink); padding-bottom:6pt; }
 .cover h1 { font-size:31pt; line-height:.94; letter-spacing:-.025em; margin:12pt 0 7pt; }
-.cover .subtitle { font-size:9pt; margin-bottom:22pt; }
-.cover .deck { border-top:1pt solid var(--ink); padding-top:8pt; max-width:4.25in; font-size:8.5pt; }
+.cover .subtitle { font-size:10pt; margin-bottom:22pt; }
+.cover .deck { border-top:1pt solid var(--ink); padding-top:8pt; max-width:4.25in; font-size:9.25pt; line-height:1.4; }
 .foundation-title { font-size:17pt; line-height:1; margin:0 0 12pt; border-bottom:3pt solid var(--ink); padding-bottom:7pt; }
 .foundation { break-before:page; }
 .foundation section { margin:0 0 14pt; }
-.foundation h2,.section-label { font-size:9pt; letter-spacing:.04em; margin:0 0 5pt; }
+.foundation h2,.section-label { font-size:10pt; letter-spacing:.025em; margin:0 0 6pt; }
 .provenance-grid { border:1pt solid var(--ink); }
 .provenance-row { display:grid; grid-template-columns:88pt 1fr; border-bottom:.7pt solid var(--ink); }
 .provenance-row:last-child { border-bottom:0; }
-.provenance-row b { padding:6pt; background:var(--gray-15); color:var(--ink); border-right:1pt solid var(--ink); font-size:7.4pt; }
+.provenance-row b { padding:7pt 6pt; background:var(--gray-15); color:var(--ink); border-right:1pt solid var(--ink); font-size:8.5pt; line-height:1.18; }
 .provenance-row.documented b { background:var(--gray-70); color:var(--paper); }
 .provenance-row.recollected { border-left:4pt double var(--ink); }
 .provenance-row.recollected b { background:var(--paper); }
 .provenance-row.unknown b { background:var(--paper); border-right-style:dashed; }
 .provenance-row.teaching-scenario b { background:var(--gray-05); border-right-width:3pt; border-right-style:double; }
-.provenance-row p { padding:6pt 8pt; margin:0; font-size:8.2pt; }
-.roles { break-inside:avoid; }
+.provenance-row p { padding:7pt 8pt; margin:0; font-size:9pt; line-height:1.3; }
+.identity,.roles { break-inside:avoid; }
 .roles li { margin-bottom:6pt; }
 .timeline-intro { break-before:page; }
 .timeline-intro > h2 { font-size:17pt; line-height:1; margin:0 0 14pt; border-bottom:3pt solid var(--ink); padding-bottom:7pt; }
@@ -45,42 +45,43 @@ h1,h2,h3 { break-after:avoid; }
 .story-timeline li::after { content:""; position:absolute; z-index:1; left:11.5pt; top:25pt; bottom:0; border-left:2pt solid var(--ink); }
 .story-timeline li:last-child::after { display:none; }
 .timeline-copy { border-top:1pt solid var(--ink); padding:5pt 0 0 8pt; }
-.timeline-copy h3 { font-size:10pt; line-height:1.1; margin:0 0 4pt; }
-.timeline-copy p { font-size:8.8pt; line-height:1.27; margin:0; }
+.timeline-copy h3 { font-size:11pt; line-height:1.15; margin:0 0 4pt; }
+.timeline-copy p { font-size:9.5pt; line-height:1.34; margin:0; }
 .decision-unit { break-before:page; }
-.decision-unit-title { font-size:16pt; line-height:1.02; margin:0 0 12pt; padding-bottom:7pt; border-bottom:3pt solid var(--ink); }
+.decision-unit-title { font-size:17pt; line-height:1.08; margin:0 0 12pt; padding-bottom:7pt; border-bottom:3pt solid var(--ink); }
 .context-block { border-left:3pt solid var(--ink); padding-left:10pt; margin:0 0 12pt; }
-.evidence-inline { display:grid; grid-template-columns:82pt 1fr; border:1pt solid var(--ink); margin:8pt 0; break-inside:avoid; }
-.evidence-inline b { padding:7pt; border-right:1pt solid var(--ink); font-size:7.2pt; background:var(--gray-70); color:var(--paper); }
+.evidence-inline { display:block; border:1pt solid var(--ink); margin:10pt 0; break-inside:avoid; }
+.evidence-inline b { display:block; padding:5pt 8pt; border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.2; background:var(--gray-70); color:var(--paper); }
 .evidence-inline.recollected { border-left:4pt double var(--ink); }
 .evidence-inline.recollected b { background:var(--paper); color:var(--ink); }
 .evidence-inline.unknown { border-style:dashed; }
-.evidence-inline.unknown b { background:var(--paper); color:var(--ink); border-right-style:dashed; }
+.evidence-inline.unknown b { background:var(--paper); color:var(--ink); border-bottom-style:dashed; }
 .evidence-inline.teaching-scenario { border-left:3pt double var(--ink); }
-.evidence-inline.teaching-scenario b { background:var(--gray-05); color:var(--ink); border-right-width:3pt; border-right-style:double; }
-.evidence-inline p { padding:7pt 8pt; margin:0; font-size:8.7pt; }
+.evidence-inline.teaching-scenario b { background:var(--gray-05); color:var(--ink); border-bottom-width:3pt; border-bottom-style:double; }
+.evidence-inline p { padding:8pt 9pt; margin:0; font-size:10pt; line-height:1.38; }
 .choice-cycle { margin-top:15pt; border:1pt solid var(--ink); border-top-width:3pt; background:var(--paper); break-inside:avoid; }
 .decision { margin:0; }
-.decision h2 { margin:0; padding:7pt 10pt; color:var(--ink); background:var(--gray-15); border-bottom:1pt solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; font-size:10pt; letter-spacing:.055em; }
-.decision h2 small { font-size:6.8pt; letter-spacing:.06em; }
+.decision h2 { margin:0; padding:8pt 10pt; color:var(--ink); background:var(--gray-15); border-bottom:1pt solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; gap:10pt; font-size:11pt; letter-spacing:.035em; }
+.decision h2 small { font-size:8.5pt; letter-spacing:.035em; white-space:nowrap; }
 .decision > p { padding:8pt 10pt 0; font-weight:700; }
 .decision ol { list-style:none; counter-reset:option; margin:0; padding:7pt 10pt 7pt; }
-.decision li { counter-increment:option; position:relative; min-height:27pt; padding:6pt 6pt 5pt 31pt; border-top:.7pt solid var(--gray-40); margin:0; break-inside:avoid; }
+.decision li { counter-increment:option; position:relative; min-height:32pt; padding:7pt 6pt 7pt 34pt; border-top:1pt solid var(--gray-40); margin:0; font-size:10pt; line-height:1.35; break-inside:avoid; }
 .decision li:last-child { border-bottom:.7pt solid var(--gray-40); }
-.decision li::before { content:counter(option, upper-alpha); position:absolute; left:3pt; top:5pt; width:19pt; padding:2pt 0; color:var(--paper); background:var(--gray-70); text-align:center; font-size:7.5pt; font-weight:700; }
+.decision li::before { content:counter(option, upper-alpha); position:absolute; left:4pt; top:7pt; width:21pt; padding:3pt 0; color:var(--paper); background:var(--gray-70); text-align:center; font-size:8.5pt; line-height:1.1; font-weight:700; }
 .boundary { margin:0; border-top:2pt solid var(--ink); padding:7pt 8pt; background:var(--gray-05); display:flex; justify-content:space-between; align-items:baseline; break-inside:avoid; break-after:page; }
-.boundary b { font-size:8.2pt; letter-spacing:.035em; }
-.boundary span { font-size:7.5pt; }
+.boundary b { font-size:9pt; letter-spacing:.02em; }
+.boundary span { font-size:8.5pt; }
 .reveal { break-before:page; }
-.reveal h2 { font-size:9pt; letter-spacing:.04em; margin:0 0 7pt; }
-.reveal h3 { font-size:20pt; line-height:1; margin:0 0 12pt; }
-.lesson { margin:15pt 0; border:1pt solid var(--ink); border-top-width:3pt; display:grid; grid-template-columns:88pt 1fr; break-inside:avoid; overflow:hidden; }
-.lesson-label { background:var(--gray-15); color:var(--ink); padding:9pt 7pt; border-right:1pt solid var(--ink); font-size:7.4pt; font-weight:700; }
-.lesson-body { padding:8pt 10pt 7pt; }
+.reveal h2 { font-size:10pt; letter-spacing:.025em; margin:0 0 7pt; }
+.reveal h3 { font-size:20pt; line-height:1.08; margin:0 0 12pt; }
+.lesson { margin:16pt 0; border:1pt solid var(--ink); border-top-width:3pt; display:block; break-inside:avoid; overflow:hidden; }
+.lesson-label { background:var(--gray-15); color:var(--ink); padding:6pt 9pt; border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.2; font-weight:700; }
+.lesson-body { padding:9pt 10pt 10pt; }
+.lesson-body h2 { font-size:13pt; line-height:1.15; margin:0 0 7pt; }
 .sidebar { background:var(--gray-05); border:1pt solid var(--ink); padding:9pt 10pt 3pt; margin:14pt 0; break-inside:avoid; }
-.sidebar h2 { font-size:10pt; margin:0 0 6pt; }
+.sidebar h2 { font-size:11pt; line-height:1.2; margin:0 0 7pt; }
 .closing { break-before:page; }
 .closing h2 { font-size:14pt; line-height:1; border-bottom:3pt solid var(--ink); padding-bottom:6pt; margin:0 0 10pt; }
 .closing section { margin:0 0 18pt; }
-.source-list { font-size:8.5pt; }
+.source-list { font-size:9pt; line-height:1.35; }
 .page-break { break-before:page; }

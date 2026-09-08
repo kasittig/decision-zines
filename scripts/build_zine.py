@@ -182,7 +182,7 @@ def render(title: str, sections: list[Section]) -> str:
         cls = label.lower().replace(" ", "-")
         parts.append(f'<div class="provenance-row {cls}"><b>{label}</b><p>{inline(tpl[key].split(":",1)[-1].strip())}</p></div>')
     parts.append('</div></section>')
-    for heading, cls in (("INTENT",""),("WHO ARE YOU?",""),("ROLES IN THIS STORY","roles"),("TIMELINE","timeline-intro")):
+    for heading, cls in (("INTENT","intent"),("WHO ARE YOU?","identity"),("ROLES IN THIS STORY","roles"),("TIMELINE","timeline-intro")):
         sec=by_heading[heading]
         content = timeline_html(sec.lines) if heading == "TIMELINE" else body_html(sec.lines)
         parts.append(f'<section class="{cls}"><h2>{heading}</h2>{content}</section>')

@@ -18,15 +18,16 @@ The zine is an operational field guide with independent-editorial energy: direct
 | Dark gray | `#4d4d4d` | Compact committed labels; replaces large solid-black fills |
 | Rule | `1pt` | Ordinary component boundary |
 | Heavy rule | `3pt` | Part, decision, and teaching boundaries |
-| Body minimum | `9.5pt` | Binding readability floor |
-| Small minimum | `8pt` | Provenance and support labels |
+| Body minimum | `10.5pt` | Binding readability floor |
+| Support minimum | `9pt` | Supporting prose and source entries |
+| Label minimum | `8.5pt` | Short provenance and navigation labels only |
 
 The reference PDF embeds DejaVu Sans and DejaVu Sans Bold exclusively. The prototype therefore bundles and uses those same faces. Font files and their license notice live under `assets/fonts/`. Final sizes remain subject to physical print review.
 
 ## Page grid
 
 - Half-letter portrait reader page.
-- Narrow single-column content region.
+- Single-column content region with a target line length below 70 characters.
 - Running part/role header above a heavy rule.
 - Scenario content in source order.
 - Commit treatment above the running timeline.
@@ -53,7 +54,7 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Recollected:** unfilled white provenance cell with a heavy double black rule. It contains no gray fill or halftone and remains distinct on a black-and-white laser printer without ranking the evidence as correct or incorrect.
 - **Unknown:** unfilled cell with dashed boundaries.
 - **Teaching scenario:** pale-gray cell with a double boundary.
-- **Teaching lesson:** a fully enclosed panel with a light-gray semantic rail beside the interpretation body; the continuous outer border keeps the entire lesson visibly grouped without requiring a toner-heavy black block.
+- **Teaching lesson:** a fully enclosed panel with a light-gray label band above a full-width interpretation body; the continuous outer border keeps the entire lesson visibly grouped without narrowing the teaching text.
 - **Timeline:** the foundation chronology is a dedicated vertical five-step sequence with numbered nodes, a continuous rail, and distinct phase labels. Compact scenario navigation may use a horizontal rule; its active phase uses a filled node and bold label.
 
 ## Running timeline contract
@@ -69,6 +70,8 @@ All design tokens use equal red, green, and blue channels. When Ghostscript is a
 - Does 9.5pt body text remain comfortable after duplex printing and folding?
 - Do all four provenance states remain distinguishable in draft-quality grayscale printing?
 - Are solid dark fills limited enough to avoid toner-heavy pages and curling?
+- Is ordinary prose at least `10.5pt`, with support text at least `9pt` and short labels at least `8.5pt`?
+- Do evidence and teaching components preserve a comfortable full-width reading measure?
 - Is the alert tile friendly enough without trivializing the subject?
 - Does the decision page provide useful writing/consideration space rather than accidental emptiness?
 - Does the commit treatment remain visible near common printer non-printable margins?

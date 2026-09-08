@@ -54,7 +54,7 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Boundary:** an attached gray commit footer separated by a heavy rule; it ends the reader page and completes the decision component.
 - **Reveal:** headline followed by tabular evidence blocks.
 - **Documented:** dark-gray provenance cell with reversed text.
-- **Recollected:** light-gray title band above a white body, with a heavy double separator and double left rail. The fill-plus-rule treatment evokes a retained human account and stays distinct on a black-and-white laser printer without ranking the evidence as correct or incorrect.
+- **Recollected:** light-gray title band above a white body inside a simple solid frame. The restrained fill treatment evokes a retained human account and stays distinct on a black-and-white laser printer without ranking the evidence as correct or incorrect.
 - **Unknown:** unfilled white title and body with a heavier dashed perimeter and dashed separator, leaving the state visibly open and unresolved.
 - **Teaching scenario:** pale-gray cell with a double boundary.
 - **Teaching lesson:** a fully enclosed panel with a light-gray label band above a full-width interpretation body; the continuous outer border keeps the entire lesson visibly grouped without narrowing the teaching text. A second heading appears only when the author supplies a topic in `TEACHING LESSON - [topic]`; the bare form does not generate a redundant fallback heading.

@@ -50,11 +50,11 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Documented:** solid black provenance cell.
 - **Recollected:** diagonal-line provenance cell. It remains distinct in grayscale without ranking the evidence as correct or incorrect.
 - **Teaching lesson:** a fully enclosed panel with a black semantic rail beside the interpretation body; the continuous outer border keeps the entire lesson visibly grouped, while the distinct treatment prevents it from masquerading as evidence.
-- **Timeline:** a persistent five-phase navigation rule. The active phase uses a filled node and bold label.
+- **Timeline:** the foundation chronology is a dedicated vertical five-step sequence with numbered nodes, a continuous rail, and distinct phase labels. Compact scenario navigation may use a horizontal rule; its active phase uses a filled node and bold label.
 
 ## Running timeline contract
 
-The foundation timeline introduces the story phases. Scenario pages may repeat a compact running timeline with the current phase emphasized. It is navigational and must not name or imply an unrevealed outcome. Phase labels come from semantic timeline data rather than hard-coded stylesheet text.
+The foundation timeline introduces the story phases on its own page, preserving each Markdown bullet as a separate chronological step. Scenario pages may repeat a compact running timeline with the current phase emphasized. It is navigational and must not name or imply an unrevealed outcome. Phase labels come from semantic timeline data rather than hard-coded stylesheet text.
 
 ## Print review questions
 

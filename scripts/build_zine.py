@@ -70,6 +70,11 @@ def paragraphs(lines: list[str]) -> list[str]:
     for line in lines:
         if not line.strip():
             flush()
+        elif line.lstrip().startswith("- "):
+            # A Markdown list does not require blank lines between items. Flush
+            # surrounding prose and preserve each bullet as its own block.
+            flush()
+            out.append(line.strip())
         else:
             buffer.append(line)
     flush()
@@ -97,6 +102,26 @@ def body_html(lines: list[str], evidence=True) -> str:
             chunks.append(f"<p>{inline(para)}</p>")
     flush_list()
     return "".join(chunks)
+
+
+def timeline_html(lines: list[str]) -> str:
+    items: list[str] = []
+    for para in paragraphs(lines):
+        if not para.startswith("- "):
+            continue
+        content = para[2:].strip()
+        match = re.match(r"^\*\*(.+?):\*\*\s*(.*)$", content)
+        if match:
+            label, description = match.groups()
+            items.append(
+                f'<li><div class="timeline-copy"><h3>{inline(label)}</h3>'
+                f'<p>{inline(description)}</p></div></li>'
+            )
+        else:
+            items.append(f'<li><div class="timeline-copy"><p>{inline(content)}</p></div></li>')
+    if not items:
+        return body_html(lines)
+    return '<ol class="story-timeline">' + "".join(items) + "</ol>"
 
 
 def options_html(lines: list[str]) -> tuple[str, list[str]]:
@@ -156,7 +181,9 @@ def render(title: str, sections: list[Section]) -> str:
         parts.append(f'<div class="provenance-row"><b>{label}</b><p>{inline(tpl[key].split(":",1)[-1].strip())}</p></div>')
     parts.append('</div></section>')
     for heading, cls in (("INTENT",""),("WHO ARE YOU?",""),("ROLES IN THIS STORY","roles"),("TIMELINE","timeline-intro")):
-        sec=by_heading[heading]; parts.append(f'<section class="{cls}"><h2>{heading}</h2>{body_html(sec.lines)}</section>')
+        sec=by_heading[heading]
+        content = timeline_html(sec.lines) if heading == "TIMELINE" else body_html(sec.lines)
+        parts.append(f'<section class="{cls}"><h2>{heading}</h2>{content}</section>')
     parts.append('</main>')
 
     i=0
@@ -222,8 +249,16 @@ def main() -> int:
     html_dir=ROOT/'output'/'html'; pdf_dir=ROOT/'output'/'pdf'; html_dir.mkdir(parents=True,exist_ok=True); pdf_dir.mkdir(parents=True,exist_ok=True)
     html_path=html_dir/f'{args.slug}-reader.html'; reader=pdf_dir/f'{args.slug}-reader.pdf'; booklet=pdf_dir/f'{args.slug}-booklet.pdf'
     html_path.write_text(render(title,sections),encoding='utf-8')
+    reader.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory(prefix=f'{args.slug}-chrome-', dir='/private/tmp') as profile:
-        subprocess.run([args.chrome,'--headless','--disable-gpu','--no-pdf-header-footer',f'--user-data-dir={profile}',f'--print-to-pdf={reader}',html_path.resolve().as_uri()],check=True)
+        command = [args.chrome,'--headless','--disable-gpu','--disable-background-networking','--disable-component-update','--no-first-run','--no-default-browser-check','--no-pdf-header-footer',f'--user-data-dir={profile}',f'--print-to-pdf={reader}',html_path.resolve().as_uri()]
+        try:
+            subprocess.run(command, check=True, timeout=20)
+        except subprocess.TimeoutExpired:
+            # Some macOS Chrome builds leave helper processes alive after the
+            # print job completes. The requested PDF is still authoritative.
+            if not reader.exists() or reader.stat().st_size < 1024:
+                raise
     impose(reader,booklet)
     print(reader); print(booklet); return 0
 

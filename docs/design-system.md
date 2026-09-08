@@ -49,7 +49,7 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Reveal:** headline followed by tabular evidence blocks.
 - **Documented:** solid black provenance cell.
 - **Recollected:** diagonal-line provenance cell. It remains distinct in grayscale without ranking the evidence as correct or incorrect.
-- **Teaching lesson:** black semantic rail beside a separate interpretation body; it never masquerades as evidence.
+- **Teaching lesson:** a fully enclosed panel with a black semantic rail beside the interpretation body; the continuous outer border keeps the entire lesson visibly grouped, while the distinct treatment prevents it from masquerading as evidence.
 - **Timeline:** a persistent five-phase navigation rule. The active phase uses a filled node and bold label.
 
 ## Running timeline contract

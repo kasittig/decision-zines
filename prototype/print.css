@@ -36,8 +36,8 @@ p { font-size:9.6pt; line-height:1.26; margin:0; }
 .evidence p { padding:8pt 9pt; border-left:var(--rule) solid var(--ink); font-size:9.2pt; line-height:1.22; }
 .evidence.documented b { color:var(--paper); background:var(--ink); }
 .evidence.recollected b { background:repeating-linear-gradient(135deg,#fff 0,#fff 4pt,#d8d8d4 4pt,#d8d8d4 5pt); }
-.lesson { margin-top:18pt; border-top:var(--heavy) solid var(--ink); border-bottom:var(--rule) solid var(--ink); display:grid; grid-template-columns:92pt 1fr; }
-.lesson-label { background:var(--ink); color:var(--paper); padding:9pt 8pt; font-size:7.6pt; line-height:1.08; letter-spacing:.05em; font-weight:850; }
+.lesson { margin-top:18pt; border:var(--rule) solid var(--ink); border-top-width:var(--heavy); display:grid; grid-template-columns:92pt 1fr; overflow:hidden; }
+.lesson-label { background:var(--ink); color:var(--paper); padding:9pt 8pt; border-right:var(--rule) solid var(--ink); font-size:7.6pt; line-height:1.08; letter-spacing:.05em; font-weight:850; }
 .lesson-body { padding:8pt 10pt 9pt; }
 .lesson-body h2 { font-size:10pt; margin-bottom:4pt; }
 .lesson-body p { font-size:9pt; line-height:1.2; }

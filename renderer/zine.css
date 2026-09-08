@@ -16,11 +16,11 @@ p { margin:0 0 8pt; orphans:3; widows:3; }
 ul,ol { margin:5pt 0 9pt 16pt; padding:0; }
 li { margin:0 0 4pt; }
 h1,h2,h3 { break-after:avoid; }
-.cover { height:7.64in; display:flex; flex-direction:column; justify-content:flex-end; break-after:page; }
+.cover { height:7.64in; display:flex; flex-direction:column; justify-content:center; padding-bottom:.45in; text-align:center; break-after:page; }
 .cover .kicker { font-size:8.5pt; font-weight:700; letter-spacing:.04em; border-bottom:3pt solid var(--ink); padding-bottom:6pt; }
-.cover h1 { font-size:31pt; line-height:.94; letter-spacing:-.025em; margin:12pt 0 7pt; }
+.cover h1 { align-self:center; max-width:4.45in; font-size:31pt; line-height:.96; letter-spacing:-.025em; margin:14pt 0 8pt; }
 .cover .subtitle { font-size:10pt; margin-bottom:22pt; }
-.cover .deck { border-top:1pt solid var(--ink); padding-top:8pt; max-width:4.25in; font-size:9.25pt; line-height:1.4; }
+.cover .deck { align-self:center; border-top:1pt solid var(--ink); padding-top:9pt; max-width:4.25in; margin:0 auto; font-size:9.25pt; line-height:1.4; }
 .foundation-title { font-size:17pt; line-height:1; margin:0 0 12pt; border-bottom:3pt solid var(--ink); padding-bottom:7pt; }
 .foundation { break-before:page; }
 .foundation section { margin:0 0 14pt; }

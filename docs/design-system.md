@@ -28,6 +28,7 @@ The reference PDF embeds DejaVu Sans and DejaVu Sans Bold exclusively. The proto
 
 - Half-letter portrait reader page.
 - Single-column content region with a target line length below 70 characters.
+- Cover composition centered horizontally and placed slightly above the page's geometric midpoint for optical balance after folding.
 - Running part/role header above a heavy rule.
 - Scenario content in source order.
 - Commit treatment above the running timeline.

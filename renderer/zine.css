@@ -25,16 +25,17 @@ h1,h2,h3 { break-after:avoid; }
 .foundation { break-before:page; }
 .foundation section { margin:0 0 14pt; }
 .foundation h2,.section-label { font-size:10pt; letter-spacing:.025em; margin:0 0 6pt; }
-.provenance-grid { border:1pt solid var(--ink); }
-.provenance-row { display:grid; grid-template-columns:88pt 1fr; border-bottom:.7pt solid var(--ink); }
-.provenance-row:last-child { border-bottom:0; }
-.provenance-row b { padding:7pt 6pt; background:var(--gray-15); color:var(--ink); border-right:1pt solid var(--ink); font-size:8.5pt; line-height:1.18; }
+.provenance-grid { border-top:3pt solid var(--ink); }
+.provenance-row { display:block; border:1pt solid var(--ink); border-top:0; break-inside:avoid; }
+.provenance-row b { display:block; padding:5pt 8pt; background:var(--gray-15); color:var(--ink); border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.18; }
 .provenance-row.documented b { background:var(--gray-70); color:var(--paper); }
 .provenance-row.recollected { border-left:4pt double var(--ink); }
 .provenance-row.recollected b { background:var(--paper); }
-.provenance-row.unknown b { background:var(--paper); border-right-style:dashed; }
-.provenance-row.teaching-scenario b { background:var(--gray-05); border-right-width:3pt; border-right-style:double; }
-.provenance-row p { padding:7pt 8pt; margin:0; font-size:9pt; line-height:1.3; }
+.provenance-row.unknown { border-style:dashed; border-top:0; }
+.provenance-row.unknown b { background:var(--paper); border-bottom-style:dashed; }
+.provenance-row.teaching-scenario { border-left:3pt double var(--ink); }
+.provenance-row.teaching-scenario b { background:var(--gray-05); border-bottom-width:3pt; border-bottom-style:double; }
+.provenance-row p { padding:6pt 8pt 7pt; margin:0; font-size:9.25pt; line-height:1.32; }
 .identity,.roles { break-inside:avoid; }
 .roles li { margin-bottom:6pt; }
 .timeline-intro { break-before:page; }

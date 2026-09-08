@@ -21,7 +21,7 @@ If style and recognized text disagree, preserve the recognized semantic meaning 
 
 Zine-specific foundation input: title, optional `CONTENT NOTE`, `INTENT`, `WHO ARE YOU?`, `ROLES IN THIS STORY`, and `TIMELINE`. The subtitle, `HOW TO READ THIS`, and `PROVENANCE VOCABULARY` are template-owned components that appear only after expansion.
 
-Scenario: `PART [number] - YOU ARE [role]`, `CONTEXT`, `CONTEXT - [topic]`, `THE PLAN`, `THE PLAN - [topic]`, `WHAT DO YOU DO?`, `TEACHING DECISION - [topic]`, `DECISION BOUNDARY`, `WHAT THE RECORD SHOWS`, `WHAT THE RECORD SHOWS - [outcome]`, `THE PLAN ENDS HERE`, `UNKNOWN`, `TEACHING LESSON - [topic]`, and `TEACHING QUESTION`.
+Scenario: `PART [number] - YOU ARE [role]`, `CONTEXT`, `CONTEXT - [topic]`, `THE PLAN`, `THE PLAN - [topic]`, `WHAT DO YOU DO?`, `TEACHING DECISION - [topic]`, `DECISION BOUNDARY`, `WHAT THE RECORD SHOWS`, `WHAT THE RECORD SHOWS - [outcome]`, `THE PLAN ENDS HERE`, `UNKNOWN`, `TEACHING LESSON`, `TEACHING LESSON - [topic]`, and `TEACHING QUESTION`. The bare teaching-lesson form renders only the standard component label; the topical form adds the supplied topic as a body heading.
 
 Zine-specific closing input: `LOOK BACK AT YOUR DECISIONS`, `LESSONS - [theme]`, and optional `SOURCE ENTRIES`. The template adds `PLAY AGAIN`, `PRIVACY, SOURCES & CONTRIBUTIONS`, and `SOURCES` to the expanded document.
 

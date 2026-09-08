@@ -206,8 +206,9 @@ def render(title: str, sections: list[Section]) -> str:
             parts.append(f'<article class="reveal"><h2>{inline(reveal.heading)}</h2><h3>{inline(topic)}</h3>{body_html(reveal.lines)}</article>'); i += 1
             continue
         if upper.startswith("TEACHING LESSON"):
-            topic=sec.heading.split("—",1)[1].strip() if "—" in sec.heading else "WHAT THIS TEACHES"
-            parts.append(f'<section class="lesson"><div class="lesson-label">TEACHING LESSON</div><div class="lesson-body"><h2>{inline(topic)}</h2>{body_html(sec.lines)}</div></section>')
+            topic_match = re.match(r"^TEACHING LESSON\s+[—-]\s+(.+)$", sec.heading, re.I)
+            topic_heading = f'<h2>{inline(topic_match.group(1).strip())}</h2>' if topic_match else ""
+            parts.append(f'<section class="lesson"><div class="lesson-label">TEACHING LESSON</div><div class="lesson-body">{topic_heading}{body_html(sec.lines)}</div></section>')
         elif upper.startswith("SIDEBAR"):
             parts.append(f'<aside class="sidebar"><h2>{inline(sec.heading)}</h2>{body_html(sec.lines)}</aside>')
         i += 1

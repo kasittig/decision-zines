@@ -84,6 +84,7 @@ GOOGLE DOCS STYLES
 DECISIONS
 
 - Keep each option as its own paragraph immediately following WHAT DO YOU DO?
+- Use bare `TEACHING LESSON` when the label alone is sufficient. Use `TEACHING LESSON — [TOPIC]` only when the panel needs a meaningful topic heading; the formatter will not invent an additional heading for the bare form.
 - Preserve explicit A., B., C., etc. prefixes.
 - Do not emphasize or recommend an option.
 - Do not add “Choose another response.”; the template supplies it when absent.
@@ -188,4 +189,3 @@ quote only the minimum text needed to locate it.
 ## What the importer does next
 
 The Google Docs adapter emits sparse normalized Markdown. The build resolves the declared template version, injects shared components, merges `SOURCE ENTRIES` into the template-owned Sources component, validates the expanded IR, and only then renders the zine.
-

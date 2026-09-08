@@ -45,6 +45,7 @@ The decision/commit axis is the expressive center. All other components remain r
 ## Component language
 
 - **Content note:** heavy outlined field with the standard DejaVu warning-triangle glyph, a black reverse label, and a gray message cell. Conspicuous and familiar, not a normal heading.
+- **Provenance vocabulary:** four stacked, full-width definition blocks. Each label sits above its explanation and previews the same border/fill treatment used later in the zine.
 - **Context:** open text with a heavy left rule, representing present conditions and available knowledge.
 - **Plan:** enclosed gray field explicitly glossed as what the system expected.
 - **Decision:** one high-contrast skim landmark: a light-gray `WHAT DO YOU DO?` banner bounded by a heavy black rule, an enclosed option field, and compact dark-gray alphabetical markers with equal visual weight.
@@ -54,7 +55,7 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Recollected:** unfilled white provenance cell with a heavy double black rule. It contains no gray fill or halftone and remains distinct on a black-and-white laser printer without ranking the evidence as correct or incorrect.
 - **Unknown:** unfilled cell with dashed boundaries.
 - **Teaching scenario:** pale-gray cell with a double boundary.
-- **Teaching lesson:** a fully enclosed panel with a light-gray label band above a full-width interpretation body; the continuous outer border keeps the entire lesson visibly grouped without narrowing the teaching text.
+- **Teaching lesson:** a fully enclosed panel with a light-gray label band above a full-width interpretation body; the continuous outer border keeps the entire lesson visibly grouped without narrowing the teaching text. A second heading appears only when the author supplies a topic in `TEACHING LESSON - [topic]`; the bare form does not generate a redundant fallback heading.
 - **Timeline:** the foundation chronology is a dedicated vertical five-step sequence with numbered nodes, a continuous rail, and distinct phase labels. Compact scenario navigation may use a horizontal rule; its active phase uses a filled node and bold label.
 
 ## Running timeline contract

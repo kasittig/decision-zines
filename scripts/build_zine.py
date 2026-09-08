@@ -170,7 +170,7 @@ def render(title: str, sections: list[Section]) -> str:
                 extra=sections[i]; parts.append(f'<section><h2 class="section-label">{inline(extra.heading)}</h2>{body_html(extra.lines)}</section>'); i += 1
             if i >= len(sections): raise ValueError(f"Decision {number} lacks WHAT DO YOU DO?")
             decision=sections[i]; option_markup,_=options_html(decision.lines)
-            parts.append(f'<div class="choice-cycle"><section class="decision"><h2>WHAT DO YOU DO?</h2>{option_markup}</section>'); i += 1
+            parts.append(f'<div class="choice-cycle"><section class="decision"><h2><span>WHAT DO YOU DO?</span><small>DECISION {number}</small></h2>{option_markup}</section>'); i += 1
             if i >= len(sections) or sections[i].heading.upper() != "DECISION BOUNDARY": raise ValueError(f"Decision {number} lacks boundary")
             parts.append('<div class="boundary"><b>COMMIT BEFORE YOU CONTINUE.</b><span>Mark your choice, then turn the page.</span></div></div></article>'); i += 1
             reveal=sections[i]

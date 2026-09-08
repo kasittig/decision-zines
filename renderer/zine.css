@@ -32,13 +32,16 @@ h1,h2,h3 { break-after:avoid; }
 .evidence-inline.unknown b { background:repeating-linear-gradient(135deg,#fff 0,#fff 4pt,#d5d5d0 4pt,#d5d5d0 5pt); color:var(--ink); }
 .evidence-inline.teaching-scenario b { background:var(--wash); color:var(--ink); }
 .evidence-inline p { padding:7pt 8pt; margin:0; font-size:8.7pt; }
-.decision { margin-top:15pt; }
-.choice-cycle { break-inside:avoid; }
-.decision h2 { font-size:9pt; letter-spacing:.04em; margin:0 0 5pt; }
-.decision ol { list-style-position:outside; margin-left:24pt; }
-.decision li { padding:5pt 4pt 5pt 3pt; border-top:.7pt solid var(--mid); margin:0; break-inside:avoid; }
+.choice-cycle { margin-top:15pt; border:2pt solid var(--ink); background:var(--paper); break-inside:avoid; }
+.decision { margin:0; }
+.decision h2 { margin:0; padding:7pt 10pt; color:var(--paper); background:var(--ink); display:flex; justify-content:space-between; align-items:baseline; font-size:10pt; letter-spacing:.055em; }
+.decision h2 small { font-size:6.8pt; letter-spacing:.06em; }
+.decision > p { padding:8pt 10pt 0; font-weight:700; }
+.decision ol { list-style:none; counter-reset:option; margin:0; padding:7pt 10pt 7pt; }
+.decision li { counter-increment:option; position:relative; min-height:27pt; padding:6pt 6pt 5pt 31pt; border-top:.7pt solid var(--mid); margin:0; break-inside:avoid; }
 .decision li:last-child { border-bottom:.7pt solid var(--mid); }
-.boundary { margin-top:16pt; border-top:3pt solid var(--ink); border-bottom:3pt solid var(--ink); padding:7pt 3pt; display:flex; justify-content:space-between; align-items:baseline; break-inside:avoid; break-after:page; }
+.decision li::before { content:counter(option, upper-alpha); position:absolute; left:3pt; top:5pt; width:19pt; padding:2pt 0; color:var(--paper); background:var(--ink); text-align:center; font-size:7.5pt; font-weight:700; }
+.boundary { margin:0; border-top:3pt solid var(--ink); padding:7pt 8pt; background:var(--wash); display:flex; justify-content:space-between; align-items:baseline; break-inside:avoid; break-after:page; }
 .boundary b { font-size:8.2pt; letter-spacing:.035em; }
 .boundary span { font-size:7.5pt; }
 .reveal { break-before:page; }

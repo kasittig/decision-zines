@@ -44,8 +44,8 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Content note:** heavy outlined field with the standard DejaVu warning-triangle glyph, a black reverse label, and a gray message cell. Conspicuous and familiar, not a normal heading.
 - **Context:** open text with a heavy left rule, representing present conditions and available knowledge.
 - **Plan:** enclosed gray field explicitly glossed as what the system expected.
-- **Decision:** large compressed headline followed by evenly weighted ruled options.
-- **Boundary:** heavy rules and direct commit language; it ends the reader page.
+- **Decision:** one high-contrast skim landmark: a full-width black `WHAT DO YOU DO?` banner, an enclosed option field, and solid black alphabetical markers with equal visual weight.
+- **Boundary:** an attached gray commit footer separated by a heavy rule; it ends the reader page and completes the decision component.
 - **Reveal:** headline followed by tabular evidence blocks.
 - **Documented:** solid black provenance cell.
 - **Recollected:** diagonal-line provenance cell. It remains distinct in grayscale without ranking the evidence as correct or incorrect.

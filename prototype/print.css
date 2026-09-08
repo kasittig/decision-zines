@@ -17,13 +17,15 @@ p { font-size:9.6pt; line-height:1.26; margin:0; }
 .context { border-left:var(--heavy) solid var(--ink); padding-left:9pt; margin:11pt 0; }
 .plan { border:var(--rule) solid var(--ink); background:var(--wash); padding:8pt var(--pad); margin:11pt 0 13pt; }
 .plan h2::after { content:"  /  WHAT THE SYSTEM EXPECTED"; font-weight:500; letter-spacing:.02em; }
-.decision { margin-top:0; }
-.decision h1 { max-width:4.25in; }
-.decision ol { margin:8pt 0 0 25pt; padding:0; }
-.decision li { padding:4pt 6pt 4pt 2pt; border-top:.65pt solid var(--mid); font-size:9.4pt; font-weight:800; }
+.decision { margin-top:0; border:2pt solid var(--ink); }
+.decision h2 { margin:0; padding:7pt 9pt; color:var(--paper); background:var(--ink); display:flex; justify-content:space-between; align-items:baseline; font-size:10pt; }
+.decision h2 small { font-size:6.8pt; letter-spacing:.06em; }
+.decision h1 { max-width:none; margin:0; padding:9pt 10pt 7pt; font-size:20pt; background:var(--wash); }
+.decision ol { list-style:none; counter-reset:option; margin:0; padding:6pt 9pt 7pt; }
+.decision li { counter-increment:option; position:relative; min-height:25pt; padding:5pt 5pt 5pt 30pt; border-top:.65pt solid var(--mid); font-size:9.4pt; }
 .decision li:last-child { border-bottom:.65pt solid var(--mid); }
-.decision li::marker { font-weight:850; }
-.decision li span { display:block; font-weight:500; padding-left:3pt; }
+.decision li::before { content:counter(option, upper-alpha); position:absolute; left:3pt; top:4pt; width:18pt; padding:2pt 0; color:var(--paper); background:var(--ink); text-align:center; font-size:7.5pt; font-weight:700; }
+.decision li span { display:block; font-weight:400; padding-left:3pt; }
 .commit { position:absolute; left:.42in; right:.42in; bottom:.72in; border-top:var(--heavy) solid var(--ink); border-bottom:var(--heavy) solid var(--ink); padding:7pt 2pt 6pt; display:flex; justify-content:space-between; align-items:baseline; }
 .commit b { font-size:8.2pt; letter-spacing:.045em; }
 .commit span { font-size:7.8pt; }

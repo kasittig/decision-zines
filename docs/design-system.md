@@ -46,7 +46,7 @@ The decision/commit axis is the expressive center. All other components remain r
 
 - **Content note:** heavy outlined field with the standard DejaVu warning-triangle glyph, a black reverse label, and a gray message cell. Conspicuous and familiar, not a normal heading.
 - **Semantic card:** the single reusable component for provenance definitions and in-story evidence. Its HTML anatomy is always title plus body. The renderer supplies `kind`, `title`, and `body`; modifier classes parameterize title background, title color, outer rule style, and title-rule style through CSS custom properties.
-- **Provenance vocabulary:** a balanced two-by-two key of semantic cards. All cards share one structure, equal column widths, and equal minimum heights; the grid itself adds no special card borders or label geometry.
+- **Provenance vocabulary:** four full-width semantic cards in a single vertical reading sequence. All cards share one structure and identical width; the container controls only the one-column stack and spacing.
 - **Context:** open text with a heavy left rule, representing present conditions and available knowledge.
 - **Plan:** enclosed gray field explicitly glossed as what the system expected.
 - **Decision:** one high-contrast skim landmark: a light-gray `WHAT DO YOU DO?` banner bounded by a heavy black rule, an enclosed option field, and compact dark-gray alphabetical markers with equal visual weight.

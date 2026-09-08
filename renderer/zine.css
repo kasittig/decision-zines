@@ -25,8 +25,8 @@ h1,h2,h3 { break-after:avoid; }
 .foundation { break-before:page; }
 .foundation section { margin:0 0 14pt; }
 .foundation h2,.section-label { font-size:10pt; letter-spacing:.025em; margin:0 0 6pt; }
-.provenance-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8pt; }
-.provenance-grid .semantic-card { margin:0; min-height:104pt; }
+.provenance-grid { display:grid; grid-template-columns:1fr; gap:6pt; }
+.provenance-grid .semantic-card { margin:0; min-height:0; }
 .provenance-grid .semantic-card__body { padding:7pt 8pt; }
 .provenance-grid .semantic-card__body p { font-size:9pt; line-height:1.32; }
 .identity,.roles { break-inside:avoid; }

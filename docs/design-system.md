@@ -58,15 +58,15 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Unknown:** unfilled white title and body with a heavier dashed perimeter and dashed separator, leaving the state visibly open and unresolved.
 - **Teaching scenario:** pale-gray cell with a double boundary.
 - **Teaching lesson:** a fully enclosed panel with a light-gray label band above a full-width interpretation body; the continuous outer border keeps the entire lesson visibly grouped without narrowing the teaching text. A second heading appears only when the author supplies a topic in `TEACHING LESSON - [topic]`; the bare form does not generate a redundant fallback heading.
-- **Timeline:** the foundation chronology is a dedicated vertical five-step sequence with numbered nodes, a continuous rail, and distinct phase labels. Compact scenario navigation may use a horizontal rule; its active phase uses a filled node and bold label.
+- **Timeline:** the foundation chronology is a dedicated vertical sequence with numbered nodes, a continuous rail, and distinct phase labels. Every scenario page repeats a compact horizontal rail in the reserved bottom margin. Its active phase uses a filled numbered node and repeats only the current source-derived phase label; the centered folio sits below it.
 
 ## Running timeline contract
 
-The foundation timeline introduces the story phases on its own page, preserving each Markdown bullet as a separate chronological step. Scenario pages may repeat a compact running timeline with the current phase emphasized. It is navigational and must not name or imply an unrevealed outcome. Phase labels come from semantic timeline data rather than hard-coded stylesheet text.
+The foundation timeline introduces the story phases on its own page, preserving each Markdown bullet as a separate chronological step. Scenario pages repeat a compact running timeline with the current phase emphasized. Timeline bullets and decision cycles map by source order in this formatter. The footer is navigational and must not name or imply an unrevealed outcome. Phase labels come from semantic timeline data rather than hard-coded stylesheet text.
 
 ## Grayscale output contract
 
-All design tokens use equal red, green, and blue channels. When Ghostscript is available, the formatter additionally rewrites the reader PDF into the explicit `DeviceGray` color space before booklet imposition. Recollected content uses an unfilled field and a double black rule, avoiding color-managed gray and fragile halftone patterns entirely.
+All design tokens use equal red, green, and blue channels. When Ghostscript is available, the formatter additionally rewrites the reader PDF into the explicit `DeviceGray` color space before booklet imposition. Recollected content uses a neutral light-gray title band and simple black rules; unknown content uses unfilled fields and dashed black rules.
 
 ## Print review questions
 

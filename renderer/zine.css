@@ -1,4 +1,4 @@
-@page { size: 5.5in 8.5in; margin: .38in .42in .48in; }
+@page { size: 5.5in 8.5in; margin: .38in .42in .75in; }
 @font-face { font-family:"DejaVu Sans"; src:url("../assets/fonts/DejaVuSans.ttf") format("truetype"); font-weight:400; }
 @font-face { font-family:"DejaVu Sans"; src:url("../assets/fonts/DejaVuSans-Bold.ttf") format("truetype"); font-weight:700; }
 :root {
@@ -16,7 +16,7 @@ p { margin:0 0 8pt; orphans:3; widows:3; }
 ul,ol { margin:5pt 0 9pt 16pt; padding:0; }
 li { margin:0 0 4pt; }
 h1,h2,h3 { break-after:avoid; }
-.cover { height:7.64in; display:flex; flex-direction:column; justify-content:center; padding-bottom:.45in; text-align:center; break-after:page; }
+.cover { height:7.37in; display:flex; flex-direction:column; justify-content:center; padding-bottom:.45in; text-align:center; break-after:page; }
 .cover .kicker { font-size:8.5pt; font-weight:700; letter-spacing:.04em; border-bottom:3pt solid var(--ink); padding-bottom:6pt; }
 .cover h1 { align-self:center; max-width:4.45in; font-size:31pt; line-height:.96; letter-spacing:-.025em; margin:14pt 0 8pt; }
 .cover .subtitle { font-size:10pt; margin-bottom:22pt; }

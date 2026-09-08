@@ -137,6 +137,11 @@ Zine-specific foundation content should normally include:
 - TIMELINE
 - one or more scenario parts or decision cycles
 
+Write TIMELINE as an ordered sequence of Markdown bullets whose bold opening
+labels orient the reader without revealing outcomes. The formatter uses those
+labels for the running footer and maps them to numbered decision cycles in
+source order.
+
 Historical decision cycles must follow:
 
 context and supporting material

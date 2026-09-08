@@ -16,6 +16,7 @@ import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
+from io import BytesIO
 from pathlib import Path
 
 
@@ -133,6 +134,106 @@ def timeline_html(lines: list[str]) -> str:
     if not items:
         return body_html(lines)
     return '<ol class="story-timeline">' + "".join(items) + "</ol>"
+
+
+def timeline_phase_labels(lines: list[str]) -> list[str]:
+    """Return the author-supplied timeline labels in source order."""
+    labels: list[str] = []
+    for para in paragraphs(lines):
+        if not para.startswith("- "):
+            continue
+        content = para[2:].strip()
+        match = re.match(r"^\*\*(.+?):\*\*", content)
+        labels.append(match.group(1).strip() if match else content)
+    return labels
+
+
+def add_running_timeline(reader_path: Path, labels: list[str], decision_topics: dict[int, str]) -> None:
+    """Stamp phase navigation and folios into the reserved bottom margin."""
+    from pypdf import PdfReader, PdfWriter
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    from reportlab.pdfgen import canvas
+
+    if not labels:
+        return
+
+    font_name = "ZineDejaVuSans"
+    bold_name = "ZineDejaVuSansBold"
+    pdfmetrics.registerFont(TTFont(font_name, str(ROOT / "assets" / "fonts" / "DejaVuSans.ttf")))
+    pdfmetrics.registerFont(TTFont(bold_name, str(ROOT / "assets" / "fonts" / "DejaVuSans-Bold.ttf")))
+
+    reader = PdfReader(str(reader_path))
+    writer = PdfWriter()
+    active_phase: int | None = None
+    foundation_timeline_seen = False
+    decision_pattern = re.compile(r"\bDECISION\s+([1-9]\d*)\b", re.I)
+    closing_pattern = re.compile(r"\bLOOK BACK AT YOUR DECISIONS\b", re.I)
+    timeline_heading_pattern = re.compile(r"(^|\n)TIMELINE\s*($|\n)", re.I)
+
+    for page_number, page in enumerate(reader.pages, start=1):
+        page_text = page.extract_text() or ""
+        normalized_page_text = re.sub(r"\s+", " ", page_text).upper()
+        is_foundation_timeline = bool(timeline_heading_pattern.search(page_text))
+        if closing_pattern.search(page_text):
+            active_phase = None
+        if foundation_timeline_seen and not is_foundation_timeline:
+            for phase, topic in decision_topics.items():
+                normalized_topic = re.sub(r"\s+", " ", topic).upper()
+                if normalized_topic in normalized_page_text:
+                    active_phase = phase if phase <= len(labels) else None
+                    break
+            decision_match = decision_pattern.search(page_text)
+            if decision_match:
+                candidate = int(decision_match.group(1))
+                active_phase = candidate if candidate <= len(labels) else None
+
+        if active_phase is not None:
+            width = float(page.mediabox.width)
+            height = float(page.mediabox.height)
+            overlay_bytes = BytesIO()
+            overlay = canvas.Canvas(overlay_bytes, pagesize=(width, height))
+
+            left = 30.24
+            right = width - 30.24
+            rail_y = 46
+            node_radius = 5
+            step = (right - left) / (len(labels) - 1) if len(labels) > 1 else 0
+
+            overlay.setStrokeColorRGB(0, 0, 0)
+            overlay.setFillColorRGB(1, 1, 1)
+            overlay.setLineWidth(0.75)
+            overlay.line(left, rail_y, right, rail_y)
+
+            for index in range(1, len(labels) + 1):
+                x = left + (index - 1) * step
+                selected = index == active_phase
+                overlay.setFillColorRGB(0, 0, 0) if selected else overlay.setFillColorRGB(1, 1, 1)
+                overlay.setStrokeColorRGB(0, 0, 0)
+                overlay.setLineWidth(1)
+                overlay.circle(x, rail_y, node_radius, stroke=1, fill=1)
+                overlay.setFillColorRGB(1, 1, 1) if selected else overlay.setFillColorRGB(0, 0, 0)
+                overlay.setFont(bold_name, 7.5)
+                overlay.drawCentredString(x, rail_y - 2.7, str(index))
+
+            active_label = f"{active_phase} / {len(labels)}  {labels[active_phase - 1]}"
+            overlay.setFillColorRGB(0, 0, 0)
+            overlay.setFont(bold_name, 8.5)
+            overlay.drawCentredString(width / 2, 28.5, active_label)
+            overlay.setFont(font_name, 8.5)
+            overlay.drawCentredString(width / 2, 17.5, str(page_number))
+            overlay.save()
+
+            overlay_bytes.seek(0)
+            page.merge_page(PdfReader(overlay_bytes).pages[0])
+        writer.add_page(page)
+        if is_foundation_timeline:
+            foundation_timeline_seen = True
+
+    stamped_path = reader_path.with_name(reader_path.stem + "-running.pdf")
+    with stamped_path.open("wb") as stream:
+        writer.write(stream)
+    stamped_path.replace(reader_path)
 
 
 def options_html(lines: list[str]) -> tuple[str, list[str]]:
@@ -297,6 +398,13 @@ def main() -> int:
             # print job completes. The requested PDF is still authoritative.
             if not reader.exists() or reader.stat().st_size < 1024:
                 raise
+    timeline_section = next(section for section in sections if section.heading.upper() == "TIMELINE")
+    decision_topics = {
+        int(match.group(1)): match.group(2)
+        for section in sections
+        if (match := DECISION_HEADING.match(section.heading))
+    }
+    add_running_timeline(reader, timeline_phase_labels(timeline_section.lines), decision_topics)
     convert_to_device_gray(reader)
     impose(reader,booklet)
     print(reader); print(booklet); return 0

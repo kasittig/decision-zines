@@ -25,18 +25,10 @@ h1,h2,h3 { break-after:avoid; }
 .foundation { break-before:page; }
 .foundation section { margin:0 0 14pt; }
 .foundation h2,.section-label { font-size:10pt; letter-spacing:.025em; margin:0 0 6pt; }
-.provenance-grid { border-top:3pt solid var(--ink); }
-.provenance-row { display:block; border:1pt solid var(--ink); border-top:0; break-inside:avoid; }
-.provenance-row b { position:relative; display:block; padding:5pt 12pt; background:var(--gray-15); color:var(--ink); border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.18; }
-.provenance-row b::before { content:""; position:absolute; left:0; top:0; bottom:0; width:6pt; }
-.provenance-row.documented b { background:var(--gray-70); color:var(--paper); }
-.provenance-row.recollected b { background:var(--paper); }
-.provenance-row.recollected b::before { border-right:4pt double var(--ink); }
-.provenance-row.unknown b { background:var(--paper); border-bottom-style:dashed; }
-.provenance-row.unknown b::before { border-right:2pt dashed var(--ink); }
-.provenance-row.teaching-scenario b { background:var(--gray-05); border-bottom-width:3pt; border-bottom-style:double; }
-.provenance-row.teaching-scenario b::before { background:var(--ink); }
-.provenance-row p { padding:6pt 8pt 7pt; margin:0; font-size:9.25pt; line-height:1.32; }
+.provenance-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8pt; }
+.provenance-grid .semantic-card { margin:0; min-height:104pt; }
+.provenance-grid .semantic-card__body { padding:7pt 8pt; }
+.provenance-grid .semantic-card__body p { font-size:9pt; line-height:1.32; }
 .identity,.roles { break-inside:avoid; }
 .roles li { margin-bottom:6pt; }
 .timeline-intro { break-before:page; }
@@ -52,15 +44,27 @@ h1,h2,h3 { break-after:avoid; }
 .decision-unit { break-before:page; }
 .decision-unit-title { font-size:17pt; line-height:1.08; margin:0 0 12pt; padding-bottom:7pt; border-bottom:3pt solid var(--ink); }
 .context-block { border-left:3pt solid var(--ink); padding-left:10pt; margin:0 0 12pt; }
-.evidence-inline { display:block; border:1pt solid var(--ink); margin:10pt 0; break-inside:avoid; }
-.evidence-inline b { display:block; padding:5pt 8pt; border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.2; background:var(--gray-70); color:var(--paper); }
-.evidence-inline.recollected { border-left:4pt double var(--ink); }
-.evidence-inline.recollected b { background:var(--paper); color:var(--ink); }
-.evidence-inline.unknown { border-style:dashed; }
-.evidence-inline.unknown b { background:var(--paper); color:var(--ink); border-bottom-style:dashed; }
-.evidence-inline.teaching-scenario { border-left:3pt double var(--ink); }
-.evidence-inline.teaching-scenario b { background:var(--gray-05); color:var(--ink); border-bottom-width:3pt; border-bottom-style:double; }
-.evidence-inline p { padding:8pt 9pt; margin:0; font-size:10pt; line-height:1.38; }
+.semantic-card {
+  --semantic-title-bg:var(--paper);
+  --semantic-title-color:var(--ink);
+  --semantic-border-style:solid;
+  --semantic-rule-width:1pt;
+  --semantic-rule-style:solid;
+  display:grid;
+  grid-template-rows:auto 1fr;
+  margin:10pt 0;
+  border:1pt var(--semantic-border-style) var(--ink);
+  background:var(--paper);
+  break-inside:avoid;
+  overflow:hidden;
+}
+.semantic-card__title { margin:0; padding:6pt 8pt; background:var(--semantic-title-bg); color:var(--semantic-title-color); border-bottom:var(--semantic-rule-width) var(--semantic-rule-style) var(--ink); font-size:8.5pt; line-height:1.2; letter-spacing:.02em; }
+.semantic-card__body { padding:8pt 9pt; }
+.semantic-card__body p { margin:0; font-size:10pt; line-height:1.38; }
+.semantic-card--documented { --semantic-title-bg:var(--gray-70); --semantic-title-color:var(--paper); }
+.semantic-card--recollected { --semantic-rule-width:3pt; --semantic-rule-style:double; }
+.semantic-card--unknown { --semantic-border-style:dashed; --semantic-rule-style:dashed; }
+.semantic-card--teaching-scenario { --semantic-title-bg:var(--gray-05); --semantic-rule-width:3pt; --semantic-rule-style:double; }
 .choice-cycle { margin-top:15pt; border:1pt solid var(--ink); border-top-width:3pt; background:var(--paper); break-inside:avoid; }
 .decision { margin:0; }
 .decision h2 { margin:0; padding:8pt 10pt; color:var(--ink); background:var(--gray-15); border-bottom:1pt solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; gap:10pt; font-size:11pt; letter-spacing:.035em; }

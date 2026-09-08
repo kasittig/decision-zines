@@ -61,6 +61,17 @@ def inline(text: str) -> str:
     return value
 
 
+def semantic_card(kind: str, title: str, body: str) -> str:
+    """Render the shared provenance/evidence component."""
+    modifier = kind.lower().replace(" ", "-")
+    return (
+        f'<section class="semantic-card semantic-card--{modifier}">'
+        f'<h3 class="semantic-card__title">{inline(title)}</h3>'
+        f'<div class="semantic-card__body"><p>{inline(body)}</p></div>'
+        '</section>'
+    )
+
+
 def paragraphs(lines: list[str]) -> list[str]:
     out: list[str] = []
     buffer: list[str] = []
@@ -97,8 +108,7 @@ def body_html(lines: list[str], evidence=True) -> str:
         pm = PROVENANCE.match(para)
         if evidence and pm:
             label, text = pm.group(1).upper(), pm.group(2)
-            cls = label.lower().replace(" ", "-")
-            chunks.append(f'<div class="evidence-inline {cls}"><b>{label}</b><p>{inline(text)}</p></div>')
+            chunks.append(semantic_card(label, label, text))
         else:
             chunks.append(f"<p>{inline(para)}</p>")
     flush_list()
@@ -179,8 +189,7 @@ def render(title: str, sections: list[Section]) -> str:
     parts.append(f'<section><h2>HOW TO READ THIS</h2><p>{inline(tpl["how"])}</p></section>')
     parts.append('<section><h2>PROVENANCE VOCABULARY</h2><div class="provenance-grid">')
     for label,key in (("DOCUMENTED","documented"),("RECOLLECTED","recollected"),("UNKNOWN","unknown"),("TEACHING SCENARIO","scenario")):
-        cls = label.lower().replace(" ", "-")
-        parts.append(f'<div class="provenance-row {cls}"><b>{label}</b><p>{inline(tpl[key].split(":",1)[-1].strip())}</p></div>')
+        parts.append(semantic_card(label, label, tpl[key].split(":",1)[-1].strip()))
     parts.append('</div></section>')
     for heading, cls in (("INTENT","intent"),("WHO ARE YOU?","identity"),("ROLES IN THIS STORY","roles"),("TIMELINE","timeline-intro")):
         sec=by_heading[heading]

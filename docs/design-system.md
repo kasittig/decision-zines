@@ -14,7 +14,7 @@ The zine is an operational field guide with independent-editorial energy: direct
 | Paper | `#ffffff` | Page and reversed type |
 | Pale gray | `#f2f2f2` | Quiet fields and commit bands |
 | Light gray | `#d9d9d9` | Decision and teaching labels |
-| Mid gray | `#999999` | Secondary rules and hatch marks |
+| Mid gray | `#999999` | Secondary rules |
 | Dark gray | `#4d4d4d` | Compact committed labels; replaces large solid-black fills |
 | Rule | `1pt` | Ordinary component boundary |
 | Heavy rule | `3pt` | Part, decision, and teaching boundaries |
@@ -50,7 +50,7 @@ The decision/commit axis is the expressive center. All other components remain r
 - **Boundary:** an attached gray commit footer separated by a heavy rule; it ends the reader page and completes the decision component.
 - **Reveal:** headline followed by tabular evidence blocks.
 - **Documented:** dark-gray provenance cell with reversed text.
-- **Recollected:** diagonal grayscale-line provenance cell. It remains distinct on a black-and-white laser printer without ranking the evidence as correct or incorrect.
+- **Recollected:** unfilled white provenance cell with a heavy double black rule. It contains no gray fill or halftone and remains distinct on a black-and-white laser printer without ranking the evidence as correct or incorrect.
 - **Unknown:** unfilled cell with dashed boundaries.
 - **Teaching scenario:** pale-gray cell with a double boundary.
 - **Teaching lesson:** a fully enclosed panel with a light-gray semantic rail beside the interpretation body; the continuous outer border keeps the entire lesson visibly grouped without requiring a toner-heavy black block.
@@ -59,6 +59,10 @@ The decision/commit axis is the expressive center. All other components remain r
 ## Running timeline contract
 
 The foundation timeline introduces the story phases on its own page, preserving each Markdown bullet as a separate chronological step. Scenario pages may repeat a compact running timeline with the current phase emphasized. It is navigational and must not name or imply an unrevealed outcome. Phase labels come from semantic timeline data rather than hard-coded stylesheet text.
+
+## Grayscale output contract
+
+All design tokens use equal red, green, and blue channels. When Ghostscript is available, the formatter additionally rewrites the reader PDF into the explicit `DeviceGray` color space before booklet imposition. Recollected content uses an unfilled field and a double black rule, avoiding color-managed gray and fragile halftone patterns entirely.
 
 ## Print review questions
 

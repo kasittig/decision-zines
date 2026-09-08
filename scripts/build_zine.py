@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import html
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -241,6 +242,32 @@ def impose(reader_path: Path, booklet_path: Path) -> None:
     with booklet_path.open('wb') as f: writer.write(f)
 
 
+def convert_to_device_gray(pdf_path: Path) -> None:
+    """Rewrite a neutral PDF using an explicit grayscale color space."""
+    ghostscript = shutil.which("gs")
+    if not ghostscript:
+        print("WARNING: Ghostscript not found; PDF remains neutral RGB.", file=sys.stderr)
+        return
+    gray_path = pdf_path.with_name(pdf_path.stem + "-device-gray.pdf")
+    subprocess.run([
+        ghostscript,
+        "-q",
+        "-dSAFER",
+        "-dBATCH",
+        "-dNOPAUSE",
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.7",
+        "-dAutoRotatePages=/None",
+        "-sColorConversionStrategy=Gray",
+        "-dProcessColorModel=/DeviceGray",
+        f"-sOutputFile={gray_path}",
+        str(pdf_path),
+    ], check=True)
+    if not gray_path.exists() or gray_path.stat().st_size < 1024:
+        raise RuntimeError("Ghostscript did not produce a valid DeviceGray PDF")
+    gray_path.replace(pdf_path)
+
+
 def main() -> int:
     ap=argparse.ArgumentParser(); ap.add_argument('source',type=Path); ap.add_argument('--slug',default='zine'); ap.add_argument('--chrome',default='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
     args=ap.parse_args(); title,sections=parse(args.source)
@@ -260,6 +287,7 @@ def main() -> int:
             # print job completes. The requested PDF is still authoritative.
             if not reader.exists() or reader.stat().st_size < 1024:
                 raise
+    convert_to_device_gray(reader)
     impose(reader,booklet)
     print(reader); print(booklet); return 0
 

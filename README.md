@@ -39,9 +39,9 @@ Build the full Goat regression fixture with the bundled PDF runtime dependencies
 python scripts/build_zine.py fixtures/goat-board/source.md --slug goat-board
 ```
 
-The formatter validates heading-based semantic Markdown, expands `standard-v1`, renders a half-letter reader PDF, and imposes a landscape Letter booklet PDF. Generated files are written under `output/html/` and `output/pdf/`.
+The formatter validates heading-based semantic Markdown, expands `standard-v1`, renders a half-letter reader PDF, converts it to explicit `DeviceGray` when Ghostscript is installed, and imposes a landscape Letter booklet PDF. Generated files are written under `output/html/` and `output/pdf/`.
 
-Then open `output/pdf/one-decision.pdf` and print at 100% scale for the visual review. No production generator exists yet; see `docs/roadmap.md`.
+Open the generated reader or booklet PDF and print at 100% scale for physical review. Google Chrome is required for rendering; Ghostscript is recommended to guarantee a true grayscale PDF color space.
 
 ## Contributing and AI assistance
 

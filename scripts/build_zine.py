@@ -178,7 +178,8 @@ def render(title: str, sections: list[Section]) -> str:
     parts.append(f'<section><h2>HOW TO READ THIS</h2><p>{inline(tpl["how"])}</p></section>')
     parts.append('<section><h2>PROVENANCE VOCABULARY</h2><div class="provenance-grid">')
     for label,key in (("DOCUMENTED","documented"),("RECOLLECTED","recollected"),("UNKNOWN","unknown"),("TEACHING SCENARIO","scenario")):
-        parts.append(f'<div class="provenance-row"><b>{label}</b><p>{inline(tpl[key].split(":",1)[-1].strip())}</p></div>')
+        cls = label.lower().replace(" ", "-")
+        parts.append(f'<div class="provenance-row {cls}"><b>{label}</b><p>{inline(tpl[key].split(":",1)[-1].strip())}</p></div>')
     parts.append('</div></section>')
     for heading, cls in (("INTENT",""),("WHO ARE YOU?",""),("ROLES IN THIS STORY","roles"),("TIMELINE","timeline-intro")):
         sec=by_heading[heading]

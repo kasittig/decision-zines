@@ -19,11 +19,15 @@ If style and recognized text disagree, preserve the recognized semantic meaning 
 
 ## Reserved headings and markers
 
-Foundation: title, `A Decision-Based Teaching Reconstruction`, `HOW TO READ THIS`, `PROVENANCE VOCABULARY`, optional `CONTENT NOTE`, `INTENT`, `WHO ARE YOU?`, `ROLES IN THIS STORY`, and `TIMELINE`.
+Zine-specific foundation input: title, optional `CONTENT NOTE`, `INTENT`, `WHO ARE YOU?`, `ROLES IN THIS STORY`, and `TIMELINE`. The subtitle, `HOW TO READ THIS`, and `PROVENANCE VOCABULARY` are template-owned components that appear only after expansion.
 
 Scenario: `PART [number] - YOU ARE [role]`, `CONTEXT`, `CONTEXT - [topic]`, `THE PLAN`, `THE PLAN - [topic]`, `WHAT DO YOU DO?`, `TEACHING DECISION - [topic]`, `DECISION BOUNDARY`, `WHAT THE RECORD SHOWS`, `WHAT THE RECORD SHOWS - [outcome]`, `THE PLAN ENDS HERE`, `UNKNOWN`, `TEACHING LESSON - [topic]`, and `TEACHING QUESTION`.
 
-Closing: `LOOK BACK AT YOUR DECISIONS`, `LESSONS - [theme]`, `PRIVACY, SOURCES & CONTRIBUTIONS`, and `SOURCES`.
+Zine-specific closing input: `LOOK BACK AT YOUR DECISIONS`, `LESSONS - [theme]`, and optional `SOURCE ENTRIES`. The template adds `PLAY AGAIN`, `PRIVACY, SOURCES & CONTRIBUTIONS`, and `SOURCES` to the expanded document.
+
+Adapter-only input marker: optional `SOURCE ENTRIES`. Its contents become zine-specific blocks appended to the template-owned `SOURCES` component. The marker itself is not published.
+
+`DECISION [number] - [topic]` may be used as an authoring signpost and stable-ID seed. It does not replace the required `WHAT DO YOU DO?` component.
 
 Optional supporting headings are those listed in the project brief. Unknown additions receive diagnostics and require an explicit contract change before publication.
 

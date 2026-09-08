@@ -11,6 +11,7 @@ Milestone 0 fixes the semantic, validation, pagination, and publication contract
 ## Contents
 
 - `docs/source-format.md` - Google Docs recognition and normalization rules
+- `docs/google-doc-formatting-guide.md` - copy-paste ChatGPT instructions for preparing source Docs
 - `docs/normalized-markdown.md` - canonical build-input format
 - `templates/standard-v1.yaml` - shared boilerplate and component defaults
 - `docs/ir-schema.md` - IR v1 conventions and relationships

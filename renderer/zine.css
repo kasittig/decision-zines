@@ -1,0 +1,56 @@
+@page { size: 5.5in 8.5in; margin: .38in .42in .48in; }
+@font-face { font-family:"DejaVu Sans"; src:url("../assets/fonts/DejaVuSans.ttf") format("truetype"); font-weight:400; }
+@font-face { font-family:"DejaVu Sans"; src:url("../assets/fonts/DejaVuSans-Bold.ttf") format("truetype"); font-weight:700; }
+:root { --ink:#000; --paper:#fff; --wash:#eeeeeb; --mid:#aaa; }
+* { box-sizing:border-box; }
+html,body { margin:0; color:var(--ink); background:var(--paper); font-family:"DejaVu Sans",sans-serif; font-size:9.5pt; line-height:1.28; }
+body { counter-reset: decision; }
+p { margin:0 0 7pt; orphans:3; widows:3; }
+ul,ol { margin:5pt 0 9pt 16pt; padding:0; }
+li { margin:0 0 4pt; }
+h1,h2,h3 { break-after:avoid; }
+.cover { height:7.64in; display:flex; flex-direction:column; justify-content:flex-end; break-after:page; }
+.cover .kicker { font-size:8pt; font-weight:700; letter-spacing:.06em; border-bottom:3pt solid var(--ink); padding-bottom:6pt; }
+.cover h1 { font-size:31pt; line-height:.94; letter-spacing:-.025em; margin:12pt 0 7pt; }
+.cover .subtitle { font-size:9pt; margin-bottom:22pt; }
+.cover .deck { border-top:1pt solid var(--ink); padding-top:8pt; max-width:4.25in; font-size:8.5pt; }
+.foundation-title { font-size:17pt; line-height:1; margin:0 0 12pt; border-bottom:3pt solid var(--ink); padding-bottom:7pt; }
+.foundation { break-before:page; }
+.foundation section { margin:0 0 14pt; }
+.foundation h2,.section-label { font-size:9pt; letter-spacing:.04em; margin:0 0 5pt; }
+.provenance-grid { border:1pt solid var(--ink); }
+.provenance-row { display:grid; grid-template-columns:88pt 1fr; border-bottom:.7pt solid var(--ink); }
+.provenance-row:last-child { border-bottom:0; }
+.provenance-row b { padding:6pt; background:var(--ink); color:var(--paper); font-size:7.4pt; }
+.provenance-row p { padding:6pt 8pt; margin:0; font-size:8.2pt; }
+.roles li,.timeline-intro li { margin-bottom:6pt; }
+.decision-unit { break-before:page; }
+.decision-unit-title { font-size:16pt; line-height:1.02; margin:0 0 12pt; padding-bottom:7pt; border-bottom:3pt solid var(--ink); }
+.context-block { border-left:3pt solid var(--ink); padding-left:10pt; margin:0 0 12pt; }
+.evidence-inline { display:grid; grid-template-columns:82pt 1fr; border:1pt solid var(--ink); margin:8pt 0; break-inside:avoid; }
+.evidence-inline b { padding:7pt; font-size:7.2pt; background:var(--ink); color:var(--paper); }
+.evidence-inline.unknown b { background:repeating-linear-gradient(135deg,#fff 0,#fff 4pt,#d5d5d0 4pt,#d5d5d0 5pt); color:var(--ink); }
+.evidence-inline.teaching-scenario b { background:var(--wash); color:var(--ink); }
+.evidence-inline p { padding:7pt 8pt; margin:0; font-size:8.7pt; }
+.decision { margin-top:15pt; }
+.choice-cycle { break-inside:avoid; }
+.decision h2 { font-size:9pt; letter-spacing:.04em; margin:0 0 5pt; }
+.decision ol { list-style-position:outside; margin-left:24pt; }
+.decision li { padding:5pt 4pt 5pt 3pt; border-top:.7pt solid var(--mid); margin:0; break-inside:avoid; }
+.decision li:last-child { border-bottom:.7pt solid var(--mid); }
+.boundary { margin-top:16pt; border-top:3pt solid var(--ink); border-bottom:3pt solid var(--ink); padding:7pt 3pt; display:flex; justify-content:space-between; align-items:baseline; break-inside:avoid; break-after:page; }
+.boundary b { font-size:8.2pt; letter-spacing:.035em; }
+.boundary span { font-size:7.5pt; }
+.reveal { break-before:page; }
+.reveal h2 { font-size:9pt; letter-spacing:.04em; margin:0 0 7pt; }
+.reveal h3 { font-size:20pt; line-height:1; margin:0 0 12pt; }
+.lesson { margin:15pt 0; border-top:3pt solid var(--ink); border-bottom:1pt solid var(--ink); display:grid; grid-template-columns:88pt 1fr; break-inside:avoid; }
+.lesson-label { background:var(--ink); color:var(--paper); padding:9pt 7pt; font-size:7.4pt; font-weight:700; }
+.lesson-body { padding:8pt 10pt 3pt; }
+.sidebar { background:var(--wash); border:1pt solid var(--ink); padding:9pt 10pt 3pt; margin:14pt 0; break-inside:avoid; }
+.sidebar h2 { font-size:10pt; margin:0 0 6pt; }
+.closing { break-before:page; }
+.closing h2 { font-size:14pt; line-height:1; border-bottom:3pt solid var(--ink); padding-bottom:6pt; margin:0 0 10pt; }
+.closing section { margin:0 0 18pt; }
+.source-list { font-size:8.5pt; }
+.page-break { break-before:page; }

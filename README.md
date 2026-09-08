@@ -33,6 +33,14 @@ Milestone 0 fixes the semantic, validation, pagination, and publication contract
 python scripts/validate_contracts.py
 ```
 
+Build the full Goat regression fixture with the bundled PDF runtime dependencies available:
+
+```bash
+python scripts/build_zine.py fixtures/goat-board/source.md --slug goat-board
+```
+
+The formatter validates heading-based semantic Markdown, expands `standard-v1`, renders a half-letter reader PDF, and imposes a landscape Letter booklet PDF. Generated files are written under `output/html/` and `output/pdf/`.
+
 Then open `output/pdf/one-decision.pdf` and print at 100% scale for the visual review. No production generator exists yet; see `docs/roadmap.md`.
 
 ## Contributing and AI assistance

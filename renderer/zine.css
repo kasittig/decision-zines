@@ -27,14 +27,15 @@ h1,h2,h3 { break-after:avoid; }
 .foundation h2,.section-label { font-size:10pt; letter-spacing:.025em; margin:0 0 6pt; }
 .provenance-grid { border-top:3pt solid var(--ink); }
 .provenance-row { display:block; border:1pt solid var(--ink); border-top:0; break-inside:avoid; }
-.provenance-row b { display:block; padding:5pt 8pt; background:var(--gray-15); color:var(--ink); border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.18; }
+.provenance-row b { position:relative; display:block; padding:5pt 12pt; background:var(--gray-15); color:var(--ink); border-right:0; border-bottom:1pt solid var(--ink); font-size:8.5pt; line-height:1.18; }
+.provenance-row b::before { content:""; position:absolute; left:0; top:0; bottom:0; width:6pt; }
 .provenance-row.documented b { background:var(--gray-70); color:var(--paper); }
-.provenance-row.recollected { border-left:4pt double var(--ink); }
 .provenance-row.recollected b { background:var(--paper); }
-.provenance-row.unknown { border-style:dashed; border-top:0; }
+.provenance-row.recollected b::before { border-right:4pt double var(--ink); }
 .provenance-row.unknown b { background:var(--paper); border-bottom-style:dashed; }
-.provenance-row.teaching-scenario { border-left:3pt double var(--ink); }
+.provenance-row.unknown b::before { border-right:2pt dashed var(--ink); }
 .provenance-row.teaching-scenario b { background:var(--gray-05); border-bottom-width:3pt; border-bottom-style:double; }
+.provenance-row.teaching-scenario b::before { background:var(--ink); }
 .provenance-row p { padding:6pt 8pt 7pt; margin:0; font-size:9.25pt; line-height:1.32; }
 .identity,.roles { break-inside:avoid; }
 .roles li { margin-bottom:6pt; }

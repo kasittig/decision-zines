@@ -45,7 +45,7 @@ The decision/commit axis is the expressive center. All other components remain r
 ## Component language
 
 - **Content note:** heavy outlined field with the standard DejaVu warning-triangle glyph, a black reverse label, and a gray message cell. Conspicuous and familiar, not a normal heading.
-- **Provenance vocabulary:** four stacked, full-width definition blocks. Each label sits above its explanation and previews the same border/fill treatment used later in the zine.
+- **Provenance vocabulary:** four stacked, full-width definition blocks with identical solid outer perimeters. Each label sits above its explanation; semantic double, dashed, and heavy rules remain inside the label band so every box shares the same left and right alignment.
 - **Context:** open text with a heavy left rule, representing present conditions and available knowledge.
 - **Plan:** enclosed gray field explicitly glossed as what the system expected.
 - **Decision:** one high-contrast skim landmark: a light-gray `WHAT DO YOU DO?` banner bounded by a heavy black rule, an enclosed option field, and compact dark-gray alphabetical markers with equal visual weight.

@@ -47,13 +47,14 @@ h1,h2,h3 { break-after:avoid; }
 .semantic-card {
   --semantic-title-bg:var(--paper);
   --semantic-title-color:var(--ink);
+  --semantic-border-width:1pt;
   --semantic-border-style:solid;
   --semantic-rule-width:1pt;
   --semantic-rule-style:solid;
   display:grid;
   grid-template-rows:auto 1fr;
   margin:10pt 0;
-  border:1pt var(--semantic-border-style) var(--ink);
+  border:var(--semantic-border-width) var(--semantic-border-style) var(--ink);
   background:var(--paper);
   break-inside:avoid;
   overflow:hidden;
@@ -62,8 +63,8 @@ h1,h2,h3 { break-after:avoid; }
 .semantic-card__body { padding:8pt 9pt; }
 .semantic-card__body p { margin:0; font-size:10pt; line-height:1.38; }
 .semantic-card--documented { --semantic-title-bg:var(--gray-70); --semantic-title-color:var(--paper); }
-.semantic-card--recollected { --semantic-rule-width:3pt; --semantic-rule-style:double; }
-.semantic-card--unknown { --semantic-border-style:dashed; --semantic-rule-style:dashed; }
+.semantic-card--recollected { --semantic-title-bg:var(--gray-15); --semantic-rule-width:3pt; --semantic-rule-style:double; border-left:3pt double var(--ink); }
+.semantic-card--unknown { --semantic-border-width:1.5pt; --semantic-border-style:dashed; --semantic-rule-style:dashed; }
 .semantic-card--teaching-scenario { --semantic-title-bg:var(--gray-05); --semantic-rule-width:3pt; --semantic-rule-style:double; }
 .choice-cycle { margin-top:15pt; border:1pt solid var(--ink); border-top-width:3pt; background:var(--paper); break-inside:avoid; }
 .decision { margin:0; }

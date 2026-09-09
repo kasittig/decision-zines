@@ -20,3 +20,13 @@ Committed decisions were subsequently made revisable: returning to a decision
 preserves the prior selection while allowing the reader to submit a replacement.
 Immediate post-reveal teaching questions and lessons were subsequently grouped
 into the related reveal screen while sidebar-associated lessons stayed separate.
+
+## 2026-09-09 — Contributor onboarding and project navigation
+
+Codex assisted with restructuring the README around first-time use, local
+builds, validation, architecture, and repository navigation. It also added a
+role-based documentation index and aligned the development dependency list
+with the PDF builder's ReportLab import. Setuptools package discovery was
+disabled because this script-based proof of concept has no installable Python
+package. Publication contracts, authored zine content, provenance, and
+rendered artifacts were not changed.

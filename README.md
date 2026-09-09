@@ -1,58 +1,138 @@
-# Decision-Based Teaching Zine Generator - Milestone 0
-
-Status: contract baseline for review. This package deliberately stops before the production Google Docs adapter and full renderer.
+# Decision-Based Teaching Zine Generator
 
 [![Validate contracts](https://github.com/kasittig/decision-based-teaching-zine/actions/workflows/validate.yml/badge.svg)](https://github.com/kasittig/decision-based-teaching-zine/actions/workflows/validate.yml)
 
-## Purpose
+Turn a structured teaching scenario into two reader experiences:
 
-Milestone 0 fixes the semantic, validation, pagination, and publication contracts so an implementer does not have to invent product rules.
+- a responsive, playable website that reveals the historical record only after a reader commits to a choice;
+- printable half-letter reader and booklet PDFs designed for grayscale printing.
 
-## Contents
+The project is currently an early, contract-first proof of concept. It includes a working renderer for the Goat Board fixture, but not yet the planned production parser or Google Docs importer. See the [roadmap](docs/roadmap.md) for that progression.
 
-- `docs/source-format.md` - Google Docs recognition and normalization rules
-- `docs/google-doc-formatting-guide.md` - copy-paste ChatGPT instructions for preparing source Docs
-- `docs/normalized-markdown.md` - canonical build-input format
-- `templates/standard-v1.yaml` - shared boilerplate and component defaults
-- `docs/ir-schema.md` - IR v1 conventions and relationships
-- `docs/grammar.md` - legal document and decision-cycle ordering
-- `docs/component-contracts.md` - publication behavior and splitting policy
-- `docs/design-system.md` - visual tokens, page grid, and component language
-- `docs/pagination-contract.md` - page-turn invariants and layout priorities
-- `docs/validation-catalog.md` - stable error/warning codes
-- `docs/rendering-environment.md` - provisional renderer and print contract
-- `docs/web-edition-contract.md` - static playable-edition behavior and accessibility contract
-- `schema/teaching-zine-ir.schema.json` - executable JSON Schema
-- `fixtures/` - canonical and malformed normalized-source examples
-- `expected/` - expected IR, validation, and page-map examples
-- `prototype/` - one-decision HTML/CSS print prototype
-- `output/pdf/one-decision.pdf` - rendered half-letter prototype
+## Try the example
 
-## Quick start
+The repository includes prebuilt output, so you can explore it without installing anything:
+
+- Open [`output/site/goat-board/index.html`](output/site/goat-board/index.html) in a browser for the playable edition.
+- Open [`output/pdf/goat-board-reader.pdf`](output/pdf/goat-board-reader.pdf) for the reader PDF.
+- Print [`output/pdf/goat-board-booklet.pdf`](output/pdf/goat-board-booklet.pdf) at 100% scale, landscape, duplex, flipping on the short edge.
+
+The web edition runs entirely in the browser. Choices stay in local browser storage and are not transmitted.
+
+## Build it locally
+
+Requirements:
+
+- Python 3.11 or newer;
+- Google Chrome for PDF rendering;
+- Ghostscript (recommended) for explicit grayscale PDF output.
+
+Create an environment and install the development dependencies:
 
 ```bash
-python scripts/validate_contracts.py
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e '.[dev]'
 ```
 
-Build the full Goat regression fixture with the bundled PDF runtime dependencies available:
+Build the included Goat Board example:
 
 ```bash
 python scripts/build_zine.py fixtures/goat-board/source.md --slug goat-board
 ```
 
-The formatter validates heading-based semantic Markdown, expands `standard-v1`, renders a half-letter reader PDF, converts it to explicit `DeviceGray` when Ghostscript is installed, imposes a landscape Letter booklet PDF, and builds a responsive playable static edition. Generated files are written under `output/html/`, `output/pdf/`, and `output/site/<slug>/`.
+This writes:
 
-Open `output/site/<slug>/index.html` directly or publish that directory to any static host. The playable edition stores committed choices locally in the reader's browser and sends no data.
+```text
+output/
+├── html/goat-board-reader.html   # print-oriented intermediate HTML
+├── pdf/goat-board-reader.pdf     # half-letter reader PDF
+├── pdf/goat-board-booklet.pdf    # imposed Letter-size booklet PDF
+└── site/goat-board/              # portable playable website
+```
 
-Open the generated reader or booklet PDF and print at 100% scale for physical review. Google Chrome is required for rendering; Ghostscript is recommended to guarantee a true grayscale PDF color space.
+To build only the website—without Chrome or the PDF dependencies—run:
 
-## Contributing and AI assistance
+```bash
+python scripts/build_zine.py fixtures/goat-board/source.md \
+  --slug goat-board \
+  --web-only
+```
 
-See `CONTRIBUTING.md` for the change workflow, `AGENTS.md` for coding-agent instructions, and `docs/ai-assisted-development.md` for disclosure, privacy, verification, and human-review expectations.
+On macOS, the PDF command uses Chrome’s standard application path. Elsewhere, pass the executable explicitly:
 
-## Normative hierarchy
+```bash
+python scripts/build_zine.py fixtures/goat-board/source.md \
+  --slug goat-board \
+  --chrome /path/to/chrome
+```
 
-If materials disagree, precedence is:
+## Validate changes
+
+Run the contract checks and renderer tests before submitting a change:
+
+```bash
+python scripts/validate_contracts.py
+python -m unittest discover -s tests -v
+```
+
+Changes that affect PDF layout also require a fresh build and visual inspection of every changed page. The full workflow is in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## How the project fits together
+
+```text
+Authored source
+    │
+    ├── Google Doc ── planned adapter ──┐
+    │                                  │
+    └── direct authoring ───────────────┤
+                                       ▼
+                              canonical .zine.md
+                                       │
+                              template expansion
+                                       │
+                                       ▼
+                              validated semantic IR
+                                  ┌────┴────┐
+                                  ▼         ▼
+                              print/PDF    static web
+```
+
+Current proof-of-concept note: `scripts/build_zine.py` accepts the heading-based fixture format used by `fixtures/goat-board/source.md`. The canonical `.zine.md` parser and Google Docs adapter are later milestones.
+
+## Repository guide
+
+| Path | What belongs there |
+|---|---|
+| `docs/` | Normative contracts, author guidance, roadmap, and AI policy |
+| `fixtures/` | Valid and malformed source examples used for regression work |
+| `expected/` | Expected semantic IR, diagnostics, and page maps |
+| `schema/` | Executable JSON Schema for the semantic IR |
+| `templates/` | Versioned shared publication copy and defaults |
+| `renderer/` | Print and web styles plus browser interaction code |
+| `scripts/` | Validation and proof-of-concept build commands |
+| `tests/` | Automated renderer tests |
+| `prototype/` | Visual prototype material; direction only, not policy |
+| `output/` | Checked-in example builds for review |
+| `assets/` | Bundled fonts and licenses used for reproducible output |
+
+Start with the [documentation index](docs/README.md) if you are authoring content, implementing the pipeline, or reviewing publication behavior.
+
+## Core publication guarantees
+
+- Authored teaching and historical claims remain verbatim.
+- Provenance is never changed to simplify implementation or layout.
+- A reveal never appears on the same reader page or screen as its decision.
+- `DECISION BOUNDARY` is transformed into reader-facing commit behavior and is never printed literally.
+- `DEVELOPMENT NOTES` and everything after it remain unpublished.
+- Shared copy lives in versioned templates rather than being duplicated in each zine.
+- Canonical Markdown builds require neither Google credentials nor network access.
+- Ambiguous Google Docs structure produces a diagnostic instead of a guess.
+
+## Contract precedence
+
+When project materials disagree, use this order:
 
 1. JSON Schema for data shape.
 2. Grammar and component contracts for semantic legality.
@@ -60,20 +140,4 @@ If materials disagree, precedence is:
 4. Validation catalog for diagnostic severity.
 5. Prototype for visual direction only.
 
-## Frozen decisions
-
-- Google Docs remains the editorial source of truth.
-- Adapters emit versioned `.zine.md` artifacts; the publication core never reads Google Docs directly.
-- Normalized Markdown is independently buildable, reviewable, and suitable for direct authoring.
-- Shared boilerplate is versioned once in `templates/`, not duplicated in every input file.
-- Ambiguity produces diagnostics, not silent inference.
-- Every standard decision has exactly one reveal container.
-- A boundary ends the decision page; its reveal is the first substantive component on the next page.
-- `DEVELOPMENT NOTES` is terminal and unpublished.
-- Content is never shortened to solve pagination.
-
-## Provisional decisions requiring physical review
-
-- WeasyPrint is the candidate renderer and must be pinned after prototype approval.
-- Exact fonts and sizes remain provisional until print review; hard minimums are binding.
-- Booklet duplex is landscape Letter, left fold, flip on short edge, pending the numbered physical test.
+See [AGENTS.md](AGENTS.md) for the working agreement and [the AI-assisted development policy](docs/ai-assisted-development.md) for disclosure and review expectations.

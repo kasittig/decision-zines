@@ -30,3 +30,10 @@
 - Add review reports and visual-regression approval.
 - Define schema migrations and compatibility guarantees.
 - Package the `zine build` command for reproducible local and CI use.
+
+## Web edition
+
+- Render a responsive, one-screen-at-a-time static edition from the same semantic document as print.
+- Require explicit choice commitment before revealing the historical record.
+- Preserve choices locally and provide keyboard, touch, and narrow-screen navigation.
+- Validate the screen manifest against the decision/reveal relationship contract.

@@ -1,0 +1,142 @@
+{
+  "renderer_version": "web-v1",
+  "document": "goat-board",
+  "title": "ART, EVIDENCE & ATTRIBUTION",
+  "screens": [
+    {
+      "id": "cover",
+      "kind": "cover",
+      "label": "Cover"
+    },
+    {
+      "id": "how-to-read",
+      "kind": "foundation",
+      "label": "How to read"
+    },
+    {
+      "id": "provenance",
+      "kind": "foundation",
+      "label": "Provenance"
+    },
+    {
+      "id": "intent",
+      "kind": "foundation",
+      "label": "Intent"
+    },
+    {
+      "id": "identity",
+      "kind": "foundation",
+      "label": "Your role"
+    },
+    {
+      "id": "roles",
+      "kind": "foundation",
+      "label": "Roles"
+    },
+    {
+      "id": "timeline",
+      "kind": "timeline",
+      "label": "Timeline"
+    },
+    {
+      "id": "decision-1",
+      "kind": "decision",
+      "label": "Decision 1",
+      "decision_id": "decision-1"
+    },
+    {
+      "id": "reveal-1",
+      "kind": "reveal",
+      "label": "The record · 1",
+      "decision_id": "decision-1"
+    },
+    {
+      "id": "decision-2",
+      "kind": "decision",
+      "label": "Decision 2",
+      "decision_id": "decision-2"
+    },
+    {
+      "id": "reveal-2",
+      "kind": "reveal",
+      "label": "The record · 2",
+      "decision_id": "decision-2"
+    },
+    {
+      "id": "support-11",
+      "kind": "supporting",
+      "label": "Sidebar — Who Gets To Decide?"
+    },
+    {
+      "id": "lesson-12",
+      "kind": "lesson",
+      "label": "ROLE CONFLICT"
+    },
+    {
+      "id": "decision-3",
+      "kind": "decision",
+      "label": "Decision 3",
+      "decision_id": "decision-3"
+    },
+    {
+      "id": "reveal-3",
+      "kind": "reveal",
+      "label": "The record · 3",
+      "decision_id": "decision-3"
+    },
+    {
+      "id": "support-15",
+      "kind": "supporting",
+      "label": "Sidebar — Governance Isn’T The Only Process"
+    },
+    {
+      "id": "lesson-16",
+      "kind": "lesson",
+      "label": "CULTURAL PROCESS"
+    },
+    {
+      "id": "decision-4",
+      "kind": "decision",
+      "label": "Decision 4",
+      "decision_id": "decision-4"
+    },
+    {
+      "id": "reveal-4",
+      "kind": "reveal",
+      "label": "The record · 4",
+      "decision_id": "decision-4"
+    },
+    {
+      "id": "decision-5",
+      "kind": "decision",
+      "label": "Decision 5",
+      "decision_id": "decision-5"
+    },
+    {
+      "id": "reveal-5",
+      "kind": "reveal",
+      "label": "The record · 5",
+      "decision_id": "decision-5"
+    },
+    {
+      "id": "reflection",
+      "kind": "closing",
+      "label": "Look back"
+    },
+    {
+      "id": "lessons",
+      "kind": "closing",
+      "label": "Lessons"
+    },
+    {
+      "id": "play-again",
+      "kind": "closing",
+      "label": "Play again"
+    },
+    {
+      "id": "sources",
+      "kind": "closing",
+      "label": "Sources"
+    }
+  ]
+}

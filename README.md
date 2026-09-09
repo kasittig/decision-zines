@@ -21,6 +21,7 @@ Milestone 0 fixes the semantic, validation, pagination, and publication contract
 - `docs/pagination-contract.md` - page-turn invariants and layout priorities
 - `docs/validation-catalog.md` - stable error/warning codes
 - `docs/rendering-environment.md` - provisional renderer and print contract
+- `docs/web-edition-contract.md` - static playable-edition behavior and accessibility contract
 - `schema/teaching-zine-ir.schema.json` - executable JSON Schema
 - `fixtures/` - canonical and malformed normalized-source examples
 - `expected/` - expected IR, validation, and page-map examples
@@ -39,7 +40,9 @@ Build the full Goat regression fixture with the bundled PDF runtime dependencies
 python scripts/build_zine.py fixtures/goat-board/source.md --slug goat-board
 ```
 
-The formatter validates heading-based semantic Markdown, expands `standard-v1`, renders a half-letter reader PDF, converts it to explicit `DeviceGray` when Ghostscript is installed, and imposes a landscape Letter booklet PDF. Generated files are written under `output/html/` and `output/pdf/`.
+The formatter validates heading-based semantic Markdown, expands `standard-v1`, renders a half-letter reader PDF, converts it to explicit `DeviceGray` when Ghostscript is installed, imposes a landscape Letter booklet PDF, and builds a responsive playable static edition. Generated files are written under `output/html/`, `output/pdf/`, and `output/site/<slug>/`.
+
+Open `output/site/<slug>/index.html` directly or publish that directory to any static host. The playable edition stores committed choices locally in the reader's browser and sends no data.
 
 Open the generated reader or booklet PDF and print at 100% scale for physical review. Google Chrome is required for rendering; Ghostscript is recommended to guarantee a true grayscale PDF color space.
 

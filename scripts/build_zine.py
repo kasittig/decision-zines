@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 import shutil
 import subprocess
@@ -337,6 +338,234 @@ def render(title: str, sections: list[Section]) -> str:
     return "".join(parts)
 
 
+def web_options_html(lines: list[str], decision_id: str) -> str:
+    intro: list[str] = []
+    options: list[tuple[str, str]] = []
+    for para in paragraphs(lines):
+        match = OPTION.match(para)
+        if match:
+            options.append((match.group(1), match.group(2)))
+        else:
+            intro.append(para)
+    if not options:
+        raise ValueError("WHAT DO YOU DO? requires A./B./C. option paragraphs")
+    rendered: list[str] = []
+    for label, text in options:
+        input_id = f"{decision_id}-option-{label.lower()}"
+        rendered.append(
+            f'<li class="choice"><input type="radio" id="{input_id}" '
+            f'name="{decision_id}" value="{label}" data-text="{html.escape(text, quote=True)}">'
+            f'<label for="{input_id}"><span class="choice__letter">{label}</span>'
+            f'<span>{inline(text)}</span></label></li>'
+        )
+    return (
+        "".join(f"<p>{inline(item)}</p>" for item in intro)
+        + '<ol class="choice-list">' + "".join(rendered) + "</ol>"
+    )
+
+
+def render_web(title: str, sections: list[Section], slug: str) -> tuple[str, dict[str, object]]:
+    """Render one semantic state at a time from the same parsed source as print."""
+    by_heading = {section.heading.upper(): section for section in sections}
+    tpl = template_text()
+    screens: list[dict[str, str]] = []
+
+    def add_screen(screen_id: str, kind: str, label: str, content: str, **extra: str) -> None:
+        screens.append({"id": screen_id, "kind": kind, "label": label, "content": content, **extra})
+
+    add_screen(
+        "cover", "cover", "Cover",
+        f'<div class="cover__kicker">A DECISION-BASED TEACHING RECONSTRUCTION</div>'
+        f'<h1>{inline(title)}</h1><p class="cover__subtitle">Governance, evidence, authority, and uncertainty</p>'
+        '<p class="cover__subtitle">Make a choice, commit it, then turn the page to see what the record shows.</p>'
+    )
+    add_screen("how-to-read", "foundation", "How to read", f'<h2>HOW TO READ THIS</h2><p>{inline(tpl["how"])}</p>')
+    provenance = '<h2>PROVENANCE VOCABULARY</h2><div class="provenance-grid">'
+    for label, key in (("DOCUMENTED", "documented"), ("RECOLLECTED", "recollected"), ("UNKNOWN", "unknown"), ("TEACHING SCENARIO", "scenario")):
+        provenance += semantic_card(label, label, tpl[key].split(":", 1)[-1].strip())
+    add_screen("provenance", "foundation", "Provenance", provenance + "</div>")
+    for heading, screen_id, label in (
+        ("INTENT", "intent", "Intent"),
+        ("WHO ARE YOU?", "identity", "Your role"),
+        ("ROLES IN THIS STORY", "roles", "Roles"),
+    ):
+        section = by_heading[heading]
+        add_screen(screen_id, "foundation", label, f"<h2>{heading}</h2>{body_html(section.lines)}")
+    timeline = by_heading["TIMELINE"]
+    add_screen("timeline", "timeline", "Timeline", f"<h2>TIMELINE</h2>{timeline_html(timeline.lines)}")
+
+    reserved = {"INTENT", "WHO ARE YOU?", "ROLES IN THIS STORY", "TIMELINE", "LOOK BACK AT YOUR DECISIONS", "SOURCE ENTRIES"}
+    i = 0
+    while i < len(sections):
+        section = sections[i]
+        upper = section.heading.upper()
+        match = DECISION_HEADING.match(section.heading)
+        if match:
+            number, topic = match.groups()
+            decision_id = f"decision-{number}"
+            content = (
+                f'<p class="section-label">DECISION {number}</p><h1>{inline(topic)}</h1>'
+                f'<div class="context-block">{body_html(section.lines)}</div>'
+            )
+            i += 1
+            while i < len(sections) and sections[i].heading.upper() != "WHAT DO YOU DO?":
+                extra = sections[i]
+                content += f'<section><h2 class="section-label">{inline(extra.heading)}</h2>{body_html(extra.lines)}</section>'
+                i += 1
+            if i >= len(sections):
+                raise ValueError(f"Decision {number} lacks WHAT DO YOU DO?")
+            decision = sections[i]
+            content += f'<section><h2>WHAT DO YOU DO?</h2>{web_options_html(decision.lines, decision_id)}</section>'
+            i += 1
+            if i >= len(sections) or sections[i].heading.upper() != "DECISION BOUNDARY":
+                raise ValueError(f"Decision {number} lacks boundary")
+            content += (
+                '<div class="boundary"><div><strong>Commit before you continue.</strong>'
+                '<div class="committed" data-committed hidden></div></div>'
+                '<button class="commit" type="button" data-commit disabled>Submit response</button></div>'
+            )
+            add_screen(decision_id, "decision", f"Decision {number}", content, decision_id=decision_id)
+            i += 1
+            if i >= len(sections) or not sections[i].heading.upper().startswith("WHAT THE RECORD SHOWS"):
+                raise ValueError(f"Decision {number} lacks reveal")
+            reveal = sections[i]
+            reveal_id = f"reveal-{number}"
+            reveal_content = (
+                f'<p class="section-label">WHAT THE RECORD SHOWS</p><h1>{inline(topic)}</h1>'
+                f'<aside class="response-recap" data-response-recap="{decision_id}" hidden>'
+                '<div class="response-recap__label">YOU CHOSE</div>'
+                '<p><strong data-response-label></strong> <span data-response-text></span></p></aside>'
+                f'{body_html(reveal.lines)}'
+            )
+            i += 1
+            while i < len(sections):
+                followup = sections[i]
+                followup_upper = followup.heading.upper()
+                if followup_upper == "TEACHING QUESTION":
+                    reveal_content += (
+                        f'<section class="teaching-question"><h2>{inline(followup.heading)}</h2>'
+                        f'{body_html(followup.lines)}</section>'
+                    )
+                    i += 1
+                    continue
+                if followup_upper.startswith("TEACHING LESSON"):
+                    topic_match = re.match(r"^TEACHING LESSON\s+[—-]\s+(.+)$", followup.heading, re.I)
+                    lesson_heading = f'<h2>{inline(topic_match.group(1).strip())}</h2>' if topic_match else ""
+                    reveal_content += (
+                        '<section class="lesson"><div class="lesson-label">TEACHING LESSON</div>'
+                        f'<div class="lesson-body">{lesson_heading}{body_html(followup.lines)}</div></section>'
+                    )
+                    i += 1
+                    continue
+                break
+            add_screen(
+                reveal_id, "reveal", f"The record · {number}",
+                reveal_content,
+                decision_id=decision_id,
+            )
+            continue
+        if upper.startswith("TEACHING LESSON"):
+            topic_match = re.match(r"^TEACHING LESSON\s+[—-]\s+(.+)$", section.heading, re.I)
+            topic = topic_match.group(1).strip() if topic_match else "Teaching lesson"
+            heading = f"<h2>{inline(topic)}</h2>" if topic_match else ""
+            add_screen(
+                f"lesson-{len(screens)}", "lesson", topic,
+                f'<div class="lesson"><div class="lesson-label">TEACHING LESSON</div>'
+                f'<div class="lesson-body">{heading}{body_html(section.lines)}</div></div>',
+            )
+        elif upper.startswith("SIDEBAR") or upper in {"TEACHING QUESTION", "THE PLAN ENDS HERE"}:
+            add_screen(f"support-{len(screens)}", "supporting", section.heading.title(), f"<h2>{inline(section.heading)}</h2>{body_html(section.lines)}")
+        elif upper not in reserved and not upper.startswith("LESSONS —") and not upper.startswith("LESSONS -") and upper != "DECISION BOUNDARY" and upper != "WHAT DO YOU DO?" and not upper.startswith("WHAT THE RECORD SHOWS"):
+            # Other registered supporting components retain their authored label and body.
+            if i > 0 and any(DECISION_HEADING.match(item.heading) for item in sections[:i]):
+                add_screen(f"support-{len(screens)}", "supporting", section.heading.title(), f"<h2>{inline(section.heading)}</h2>{body_html(section.lines)}")
+        i += 1
+
+    reflection = by_heading.get("LOOK BACK AT YOUR DECISIONS")
+    lessons = next((s for s in sections if s.heading.upper().startswith("LESSONS —") or s.heading.upper().startswith("LESSONS -")), None)
+    sources = by_heading.get("SOURCE ENTRIES")
+    if reflection:
+        add_screen("reflection", "closing", "Look back", f"<h2>LOOK BACK AT YOUR DECISIONS</h2>{body_html(reflection.lines)}")
+    if lessons:
+        add_screen("lessons", "closing", "Lessons", f"<h2>{inline(lessons.heading)}</h2>{body_html(lessons.lines)}")
+    add_screen(
+        "play-again", "closing", "Play again",
+        f'<h2>PLAY AGAIN</h2><p>{inline(tpl["play"])}</p>'
+        '<button class="commit" type="button" data-restart>Restart and clear my choices</button>',
+    )
+    source_content = f'<h2>PRIVACY, SOURCES &amp; CONTRIBUTIONS</h2><p>{inline(tpl["privacy"])}</p><h2>SOURCES</h2><p>{inline(tpl["sources"])}</p>'
+    if sources:
+        source_content += '<div class="source-list">' + body_html(sources.lines, evidence=False) + "</div>"
+    add_screen("sources", "closing", "Sources", source_content)
+
+    manifest_screens = [{key: value for key, value in item.items() if key != "content"} for item in screens]
+    manifest: dict[str, object] = {"renderer_version": "web-v1", "document": slug, "title": title, "screens": manifest_screens}
+    trail = "".join(f'<li data-trail-step>{html.escape(item["label"])}</li>' for item in screens)
+    screen_markup: list[str] = []
+    for index, item in enumerate(screens):
+        classes = f'screen screen--{item["kind"]}'
+        attributes = f'id="{item["id"]}" class="{classes}" tabindex="-1" data-screen-index="{index}"'
+        if item["kind"] == "decision":
+            attributes += f' data-decision="{item["decision_id"]}"'
+        screen_markup.append(f'<article {attributes} hidden>{item["content"]}</article>')
+    manifest_json = json.dumps(manifest, ensure_ascii=False).replace("<", "\\u003c")
+    document = (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+        f'<title>{html.escape(title)} · Playable edition</title><link rel="stylesheet" href="web.css"></head>'
+        f'<body data-edition="{html.escape(slug, quote=True)}"><a class="skip-link" href="#reader">Skip to the zine</a>'
+        '<div class="app"><aside class="trail" aria-label="Reading progress">'
+        f'<h1 class="trail__title">{html.escape(title)}</h1><p class="trail__meta">Playable edition</p>'
+        f'<hr class="trail__rule"><ol class="trail__steps">{trail}</ol></aside>'
+        f'<main class="reader" id="reader"><div class="stage">{"".join(screen_markup)}</div></main></div>'
+        '<nav class="controls" aria-label="Page navigation"><button type="button" data-previous>Back</button>'
+        '<span class="counter" data-counter></span><button type="button" data-next>Next</button></nav>'
+        '<div class="status" role="status" aria-live="polite" data-status></div>'
+        f'<script type="application/json" id="zine-manifest">{manifest_json}</script>'
+        '<script src="web.js"></script></body></html>'
+    )
+    return document, manifest
+
+
+def validate_web_manifest(manifest: dict[str, object]) -> list[str]:
+    errors: list[str] = []
+    screens = manifest.get("screens")
+    if not isinstance(screens, list):
+        return ["Web manifest screens must be a list"]
+    ids = [screen.get("id") for screen in screens if isinstance(screen, dict)]
+    if len(ids) != len(screens) or len(ids) != len(set(ids)):
+        errors.append("Web screen identifiers must be present and unique")
+    for index, screen in enumerate(screens):
+        if not isinstance(screen, dict) or screen.get("kind") != "reveal":
+            continue
+        if index == 0 or not isinstance(screens[index - 1], dict):
+            errors.append(f'Reveal {screen.get("id")} has no preceding decision screen')
+            continue
+        previous = screens[index - 1]
+        if previous.get("kind") != "decision" or previous.get("decision_id") != screen.get("decision_id"):
+            errors.append(f'Reveal {screen.get("id")} must immediately follow its related decision')
+        if previous.get("id") == screen.get("id"):
+            errors.append(f'Reveal {screen.get("id")} must use a distinct screen identifier')
+    return errors
+
+
+def write_web_edition(title: str, sections: list[Section], slug: str) -> Path:
+    site_dir = ROOT / "output" / "site" / slug
+    font_dir = site_dir / "fonts"
+    font_dir.mkdir(parents=True, exist_ok=True)
+    document, manifest = render_web(title, sections, slug)
+    manifest_errors = validate_web_manifest(manifest)
+    if manifest_errors:
+        raise ValueError("; ".join(manifest_errors))
+    (site_dir / "index.html").write_text(document, encoding="utf-8")
+    (site_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    shutil.copy2(ROOT / "renderer" / "web.css", site_dir / "web.css")
+    shutil.copy2(ROOT / "renderer" / "web.js", site_dir / "web.js")
+    for font in ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf"):
+        shutil.copy2(ROOT / "assets" / "fonts" / font, font_dir / font)
+    return site_dir / "index.html"
+
+
 def impose(reader_path: Path, booklet_path: Path) -> None:
     from pypdf import PdfReader, PdfWriter, Transformation, PageObject
     reader=PdfReader(str(reader_path)); pages=list(reader.pages)
@@ -380,7 +609,7 @@ def convert_to_device_gray(pdf_path: Path) -> None:
 
 
 def main() -> int:
-    ap=argparse.ArgumentParser(); ap.add_argument('source',type=Path); ap.add_argument('--slug',default='zine'); ap.add_argument('--chrome',default='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
+    ap=argparse.ArgumentParser(); ap.add_argument('source',type=Path); ap.add_argument('--slug',default='zine'); ap.add_argument('--chrome',default='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'); ap.add_argument('--web-only', action='store_true', help='Build the portable static edition without rendering PDFs')
     args=ap.parse_args(); title,sections=parse(args.source)
     errors=validate(sections)
     if errors:
@@ -388,6 +617,10 @@ def main() -> int:
     html_dir=ROOT/'output'/'html'; pdf_dir=ROOT/'output'/'pdf'; html_dir.mkdir(parents=True,exist_ok=True); pdf_dir.mkdir(parents=True,exist_ok=True)
     html_path=html_dir/f'{args.slug}-reader.html'; reader=pdf_dir/f'{args.slug}-reader.pdf'; booklet=pdf_dir/f'{args.slug}-booklet.pdf'
     html_path.write_text(render(title,sections),encoding='utf-8')
+    site_path = write_web_edition(title, sections, args.slug)
+    if args.web_only:
+        print(site_path)
+        return 0
     reader.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory(prefix=f'{args.slug}-chrome-', dir='/private/tmp') as profile:
         command = [args.chrome,'--headless','--disable-gpu','--disable-background-networking','--disable-component-update','--no-first-run','--no-default-browser-check','--no-pdf-header-footer',f'--user-data-dir={profile}',f'--print-to-pdf={reader}',html_path.resolve().as_uri()]
@@ -407,7 +640,7 @@ def main() -> int:
     add_running_timeline(reader, timeline_phase_labels(timeline_section.lines), decision_topics)
     convert_to_device_gray(reader)
     impose(reader,booklet)
-    print(reader); print(booklet); return 0
+    print(reader); print(booklet); print(site_path); return 0
 
 
 if __name__=='__main__': raise SystemExit(main())

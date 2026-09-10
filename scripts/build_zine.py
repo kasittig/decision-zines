@@ -582,7 +582,11 @@ def write_collection_index() -> Path:
         screen_count = len(manifest.get("screens", []))
         download_dir = manifest_path.parent / "downloads"
         download_links: list[str] = []
-        for suffix, label in (("reader", "Reader PDF"), ("booklet", "Print booklet")):
+        downloads = (
+            ("reader", "Download reader PDF", '<path d="M6 2.5h8l4 4V21.5H6z"/><path d="M14 2.5v4h4M9 11h6M9 15h6"/>'),
+            ("booklet", "Download print booklet PDF", '<path d="M3 5.5c3-1 6-.5 9 1.5v13c-3-2-6-2.5-9-1.5z"/><path d="M21 5.5c-3-1-6-.5-9 1.5v13c3-2 6-2.5 9-1.5z"/>'),
+        )
+        for suffix, label, icon in downloads:
             source_pdf = ROOT / "output" / "pdf" / f"{slug}-{suffix}.pdf"
             if not source_pdf.is_file():
                 continue
@@ -591,7 +595,8 @@ def write_collection_index() -> Path:
             shutil.copy2(source_pdf, destination)
             download_links.append(
                 f'<a class="download" href="{html.escape(slug, quote=True)}/downloads/'
-                f'{html.escape(source_pdf.name, quote=True)}" download>{label}</a>'
+                f'{html.escape(source_pdf.name, quote=True)}" download aria-label="{label}" title="{label}">'
+                f'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">{icon}</svg></a>'
             )
         entries.append(
             '<li class="story"><div class="story__number" aria-hidden="true">'

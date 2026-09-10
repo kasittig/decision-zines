@@ -1,0 +1,38 @@
+name: Investigation
+description: Produce evidence and a recommendation before committing to a change
+title: "[Investigation]: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What uncertainty should this investigation resolve?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why does the answer matter now?
+    validations:
+      required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: Method and evidence
+      description: Proposed comparison, fixture, render, measurement, or research source.
+    validations:
+      required: true
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: Deliverable
+      description: Define the findings and recommendation expected; code is not required.
+    validations:
+      required: true
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: Out of scope
+

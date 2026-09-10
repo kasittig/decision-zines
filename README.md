@@ -9,6 +9,10 @@ Turn a structured teaching scenario into two reader experiences:
 
 The project is currently an early, contract-first proof of concept. It includes a working renderer for the Goat Board fixture, but not yet the planned production parser or Google Docs importer. See the [roadmap](docs/roadmap.md) for that progression.
 
+The current product scope and definition of done are recorded in
+[`PROJECT_PLAN.md`](PROJECT_PLAN.md). GitHub issues track focused implementation
+work and validation.
+
 ## Try the example
 
 The repository includes prebuilt output, so you can explore it without installing anything:

@@ -21,7 +21,9 @@ main { width:min(100% - 2rem,70rem); margin:0 auto; padding:clamp(2rem,6vw,5rem)
 .story__actions { grid-column:2; grid-row:1 / span 2; display:grid; grid-template-columns:1fr 1fr; gap:.5rem; min-width:18rem; }
 .start,.download { min-height:44px; display:flex; align-items:center; justify-content:center; padding:.7rem 1rem; border:2px solid var(--ink); font-weight:700; text-decoration:none; }
 .start { grid-column:1 / -1; background:var(--ink); color:var(--paper); }
-.download { font-size:.85rem; }
+.download { padding:.55rem; }
+.download svg { width:1.5rem; height:1.5rem; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:square; stroke-linejoin:miter; }
+.download:hover { background:var(--quiet); }
 footer { border-top:1px solid var(--ink); padding:1.25rem; text-align:center; font-size:.85rem; }
 a:focus-visible { outline:3px solid var(--ink); outline-offset:4px; }
 .masthead a:focus-visible,.start:focus-visible { outline-color:currentColor; }
@@ -35,5 +37,4 @@ a:focus-visible { outline:3px solid var(--ink); outline-offset:4px; }
   .story p { margin:.65rem 0 1rem; }
   .story__actions { display:grid; min-width:0; }
   .start { width:100%; }
-  .download { padding:.65rem .4rem; text-align:center; }
 }

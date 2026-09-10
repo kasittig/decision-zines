@@ -491,7 +491,9 @@ def render_web(title: str, sections: list[Section], slug: str) -> tuple[str, dic
     add_screen(
         "play-again", "closing", "Play again",
         f'<h2>PLAY AGAIN</h2><p>{inline(tpl["play"])}</p>'
-        '<button class="commit" type="button" data-restart>Restart and clear my choices</button>',
+        '<div class="completion-actions">'
+        '<button class="commit" type="button" data-restart>Replay story</button>'
+        '<a class="secondary-action" href="../">Return to all stories</a></div>',
     )
     source_content = f'<h2>PRIVACY, SOURCES &amp; CONTRIBUTIONS</h2><p>{inline(tpl["privacy"])}</p><h2>SOURCES</h2><p>{inline(tpl["sources"])}</p>'
     if sources:
@@ -512,11 +514,14 @@ def render_web(title: str, sections: list[Section], slug: str) -> tuple[str, dic
     document = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
-        f'<title>{html.escape(title)} · Playable edition</title><link rel="stylesheet" href="web.css"></head>'
+        f'<title>{html.escape(title)} · Playable edition</title><link rel="icon" href="../favicon.svg">'
+        '<link rel="stylesheet" href="web.css"></head>'
         f'<body data-edition="{html.escape(slug, quote=True)}"><a class="skip-link" href="#reader">Skip to the zine</a>'
         '<div class="app"><aside class="trail" aria-label="Reading progress">'
+        '<a class="all-stories" href="../">All stories</a>'
         f'<h1 class="trail__title">{html.escape(title)}</h1><p class="trail__meta">Playable edition</p>'
-        f'<hr class="trail__rule"><ol class="trail__steps">{trail}</ol></aside>'
+        f'<hr class="trail__rule"><details class="trail__contents" open><summary>Contents and progress</summary>'
+        f'<ol class="trail__steps">{trail}</ol></details></aside>'
         f'<main class="reader" id="reader"><div class="stage">{"".join(screen_markup)}</div></main></div>'
         '<nav class="controls" aria-label="Page navigation"><button type="button" data-previous>Back</button>'
         '<span class="counter" data-counter></span><button type="button" data-next>Next</button></nav>'
@@ -563,7 +568,45 @@ def write_web_edition(title: str, sections: list[Section], slug: str) -> Path:
     shutil.copy2(ROOT / "renderer" / "web.js", site_dir / "web.js")
     for font in ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf"):
         shutil.copy2(ROOT / "assets" / "fonts" / font, font_dir / font)
+    write_collection_index()
     return site_dir / "index.html"
+
+
+def write_collection_index() -> Path:
+    site_root = ROOT / "output" / "site"
+    entries: list[str] = []
+    for manifest_path in sorted(site_root.glob("*/manifest.json")):
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        slug = manifest_path.parent.name
+        title = str(manifest.get("title", slug))
+        screen_count = len(manifest.get("screens", []))
+        entries.append(
+            '<li class="story"><div class="story__number" aria-hidden="true">'
+            f'{len(entries) + 1:02d}</div><div class="story__body"><h2>{html.escape(title)}</h2>'
+            f'<p>{screen_count} steps · choices stay in your browser</p>'
+            f'<a class="start" href="{html.escape(slug, quote=True)}/">Start story</a></div></li>'
+        )
+    document = (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<title>Decision Zines</title><link rel="icon" href="favicon.svg">'
+        '<link rel="stylesheet" href="collection.css"></head><body>'
+        '<a class="skip-link" href="#stories">Skip to stories</a><header class="masthead">'
+        '<p class="masthead__mark" aria-hidden="true">?</p><div><h1>Decision Zines</h1>'
+        '<p>Choose what you would do. Commit to it. Then see what the record shows.</p></div></header>'
+        f'<main id="stories"><ol class="story-list">{"".join(entries)}</ol></main>'
+        '<footer><p>Interactive teaching stories about making decisions with incomplete information.</p></footer>'
+        '</body></html>'
+    )
+    index_path = site_root / "index.html"
+    index_path.write_text(document, encoding="utf-8")
+    shutil.copy2(ROOT / "renderer" / "collection.css", site_root / "collection.css")
+    shutil.copy2(ROOT / "renderer" / "favicon.svg", site_root / "favicon.svg")
+    font_dir = site_root / "fonts"
+    font_dir.mkdir(exist_ok=True)
+    for font in ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf"):
+        shutil.copy2(ROOT / "assets" / "fonts" / font, font_dir / font)
+    return index_path
 
 
 def impose(reader_path: Path, booklet_path: Path) -> None:

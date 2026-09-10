@@ -3,6 +3,17 @@
 Material AI-assisted work is recorded here in addition to pull-request
 disclosure. Human review remains required under `ai-assisted-development.md`.
 
+## 2026-09-10 — GitHub Pages collection MVP
+
+Codex assisted with the collection homepage, story-to-collection navigation,
+completion actions, compact mobile progress control, GitHub Pages workflow,
+renderer tests, and publication documentation. The collection design extends
+the existing grayscale field-guide system and uses relative links so it works
+at the repository subpath. Verification included contract validation, renderer
+tests, a web-only fixture build, narrow and desktop browser review, keyboard
+interaction, and a missing-asset and console-error check. Authored teaching and
+historical prose were not changed.
+
 ## 2026-09-09 — Static playable web edition
 
 Codex assisted with the web-edition contract, Python renderer, responsive

@@ -11,9 +11,12 @@ button { color:inherit; }
 .app { min-height:100dvh; display:grid; grid-template-columns:minmax(13rem,18rem) minmax(0,1fr); }
 .trail { height:100dvh; position:sticky; top:0; display:flex; flex-direction:column; background:var(--ink); color:var(--paper); padding:1.5rem 1.25rem; }
 .trail__title { margin:0 0 .4rem; font-size:1rem; line-height:1.2; }
+.all-stories { align-self:flex-start; min-height:44px; display:flex; align-items:center; margin:0 0 1rem; padding:.35rem .55rem; border:1px solid var(--paper); color:var(--paper); font-size:.82rem; font-weight:700; text-decoration:none; }
 .trail__meta { margin:0; color:#ccc; font-size:.8rem; }
 .trail__rule { border:0; border-top:3px solid var(--paper); width:100%; margin:1.25rem 0; }
-.trail__steps { list-style:none; padding:0; margin:0; overflow:auto; }
+.trail__contents { min-height:0; overflow:auto; }
+.trail__contents summary { display:none; }
+.trail__steps { list-style:none; padding:0; margin:0; }
 .trail__steps li { position:relative; padding:.35rem 0 .95rem 2rem; color:#aaa; font-size:.82rem; line-height:1.25; }
 .trail__steps li::before { content:""; position:absolute; left:.25rem; top:.4rem; width:.7rem; height:.7rem; border:2px solid currentColor; background:var(--ink); }
 .trail__steps li[data-state="done"] { color:var(--paper); }
@@ -61,6 +64,8 @@ button { color:inherit; }
 .boundary { margin:1.75rem 0 0; padding:1rem 0 0; border-top:4px solid var(--ink); display:flex; gap:1rem; justify-content:space-between; align-items:center; }
 .commit { min-height:3rem; border:2px solid var(--ink); background:var(--ink); color:var(--paper); padding:.7rem 1rem; font-weight:700; cursor:pointer; }
 .commit:disabled { background:var(--quiet); color:var(--mid); border-color:var(--line); cursor:not-allowed; }
+.completion-actions { display:flex; flex-wrap:wrap; gap:.75rem; }
+.secondary-action { min-height:3rem; display:flex; align-items:center; border:2px solid var(--ink); padding:.7rem 1rem; font-weight:700; text-decoration:none; }
 .committed { font-size:.85rem; font-weight:700; }
 .lesson { border:2px solid var(--ink); border-top-width:5px; }
 .lesson-label { padding:.6rem .8rem; background:var(--line); border-bottom:1px solid var(--ink); font-size:.8rem; font-weight:700; }
@@ -73,12 +78,17 @@ button { color:inherit; }
 .controls button:disabled { opacity:.35; cursor:not-allowed; }
 .counter { font-size:.82rem; font-weight:700; white-space:nowrap; }
 .status { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
-button:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
+button:focus-visible,a:focus-visible,summary:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
 @media (max-width:720px) {
   .app { display:block; }
   .trail { position:static; height:auto; padding:.75rem 1rem; }
+  .all-stories { margin-bottom:.65rem; }
   .trail__title { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .trail__meta,.trail__rule,.trail__steps { display:none; }
+  .trail__meta,.trail__rule { display:none; }
+  .trail__contents { overflow:visible; }
+  .trail__contents summary { min-height:44px; display:flex; align-items:center; cursor:pointer; font-size:.85rem; font-weight:700; }
+  .trail__contents:not([open]) .trail__steps { display:none; }
+  .trail__steps { max-height:45dvh; overflow:auto; border-top:1px solid var(--paper); padding-top:.75rem; }
   .reader { padding:.75rem .65rem 6.25rem; }
   .screen { min-height:calc(100dvh - 9rem); padding:1.35rem 1.15rem 2rem; box-shadow:none; }
   .boundary { align-items:stretch; flex-direction:column; }

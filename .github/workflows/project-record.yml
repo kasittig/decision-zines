@@ -1,0 +1,29 @@
+name: Project record
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  advisory-record-check:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Check project record fields
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        shell: bash
+        run: |
+          failed=0
+          if ! grep -Eqi '(close[sd]?|fix(e[sd])?|resolve[sd]?) +#[0-9]+' <<<"$PR_BODY"; then
+            echo "::warning::Link the issue with a closing keyword, such as: Closes #123"
+            failed=1
+          fi
+          if ! grep -q '^## Validation' <<<"$PR_BODY"; then
+            echo "::warning::Include the Validation section from the pull request template."
+            failed=1
+          fi
+          exit "$failed"

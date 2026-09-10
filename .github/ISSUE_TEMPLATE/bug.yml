@@ -1,0 +1,37 @@
+name: Bug report
+description: Report reproducible incorrect publication or build behavior
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Current behavior
+      description: What happened? Include exact diagnostics when useful.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Cite the relevant contract when known.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal steps and a representative, non-sensitive fixture.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Python, Chrome, and Ghostscript versions when relevant.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Additional evidence
+      description: Diagnostics, page maps, screenshots, or rendered pages with private data removed.
+

@@ -2,6 +2,24 @@
 
 This repository is designed for careful collaboration between human editors, developers, and AI coding agents.
 
+## Project stewardship
+
+Support the user as the project's subject-matter expert and decision-maker.
+Translate confirmed direction into concise GitHub issues, pull requests,
+decision records, documentation, and project updates without requiring the user
+to manage GitHub mechanics.
+
+- Search existing issues before creating a new one.
+- Keep traceability among project intent, issues, implementation, validation,
+  rendered evidence, and documentation.
+- Use `PROJECT_PLAN.md` for stable product direction and GitHub issues for
+  focused work and acceptance criteria.
+- Do not publish an inferred decision, scope change, priority, or commitment
+  without confirmation. Explicit user requests do not need reconfirmation.
+- Prefer updating an existing issue over creating a duplicate.
+- Link implementation pull requests to their issue with a closing keyword.
+- Never publish private source material, credentials, or raw conversation.
+
 ## Read first
 
 Before changing behavior, read `README.md` and every contract in `docs/`. Normative precedence is documented in the README. Do not infer publication rules from the visual prototype.

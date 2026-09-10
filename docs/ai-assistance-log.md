@@ -21,6 +21,14 @@ preserves the prior selection while allowing the reader to submit a replacement.
 Immediate post-reveal teaching questions and lessons were subsequently grouped
 into the related reveal screen while sidebar-associated lessons stayed separate.
 
+## 2026-09-09 — Project stewardship setup
+
+Codex assisted with adapting the issue forms, pull-request record checks,
+human-operated GitHub issue helper, and stable project-plan convention from the
+`knowledge-db` repository. The setup was tailored to this repository's contract
+and visual-review workflow; project-specific synchronization credentials and
+identifiers were not copied. No authored teaching or historical prose changed.
+
 ## 2026-09-09 — Contributor onboarding and project navigation
 
 Codex assisted with restructuring the README around first-time use, local

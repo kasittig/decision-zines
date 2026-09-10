@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  scripts/project-record find QUERY
+  scripts/project-record create TITLE BODY_FILE [LABEL ...] --confirmed
+  scripts/project-record comment ISSUE BODY_FILE --confirmed
+  scripts/project-record close ISSUE BODY_FILE --confirmed
+  scripts/project-record audit
+
+Publishing commands require --confirmed. This flag means the substantive
+project inference was confirmed by the human decision-maker; it is not a
+GitHub permission prompt.
+EOF
+}
+
+require_gh() {
+  command -v gh >/dev/null || { echo "GitHub CLI (gh) is required." >&2; exit 1; }
+  gh auth status >/dev/null
+}
+
+require_confirmation() {
+  local arg
+  for arg in "$@"; do
+    [[ "$arg" == "--confirmed" ]] && return 0
+  done
+  echo "Refusing to publish an unconfirmed project inference." >&2
+  echo "Confirm it with the human decision-maker, then pass --confirmed." >&2
+  exit 2
+}
+
+command_name="${1:-}"
+[[ -n "$command_name" ]] || { usage; exit 1; }
+shift
+
+case "$command_name" in
+  find)
+    require_gh
+    [[ $# -ge 1 ]] || { usage; exit 1; }
+    gh issue list --state all --search "$*" --limit 30
+    ;;
+  create)
+    require_gh
+    require_confirmation "$@"
+    [[ $# -ge 3 ]] || { usage; exit 1; }
+    title="$1"
+    body_file="$2"
+    shift 2
+    labels=()
+    for arg in "$@"; do
+      [[ "$arg" == "--confirmed" ]] || labels+=("$arg")
+    done
+    args=(issue create --title "$title" --body-file "$body_file")
+    for label in "${labels[@]}"; do args+=(--label "$label"); done
+    gh "${args[@]}"
+    ;;
+  comment)
+    require_gh
+    require_confirmation "$@"
+    [[ $# -ge 3 ]] || { usage; exit 1; }
+    gh issue comment "$1" --body-file "$2"
+    ;;
+  close)
+    require_gh
+    require_confirmation "$@"
+    [[ $# -ge 3 ]] || { usage; exit 1; }
+    issue="$1"
+    body_file="$2"
+    gh issue close "$issue" --comment "$(<"$body_file")"
+    ;;
+  audit)
+    require_gh
+    echo "Open issues"
+    gh issue list --state open --limit 100
+    echo
+    echo "Open pull requests without a closing issue reference"
+    gh pr list --state open --limit 100 --json number,title,body,url \
+      --jq '.[] | select((.body | test("(?i)(close[sd]?|fix(e[sd])?|resolve[sd]?) +#[0-9]+")) | not) | "#\(.number)\t\(.title)\t\(.url)"'
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac
+

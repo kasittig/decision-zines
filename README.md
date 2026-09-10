@@ -17,7 +17,8 @@ work and validation.
 
 Visit the published collection at
 [kasittig.github.io/decision-zines/](https://kasittig.github.io/decision-zines/),
-or explore the checked-in output without installing anything:
+where each story can be played online or downloaded as a reader or print-ready
+booklet PDF. You can also explore the checked-in output without installing anything:
 
 - Open [`output/site/index.html`](output/site/index.html) for the collection homepage.
 - Open [`output/site/artwork-fire/index.html`](output/site/artwork-fire/index.html) in a browser for the playable edition.

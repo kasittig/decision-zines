@@ -3,6 +3,14 @@
 Material AI-assisted work is recorded here in addition to pull-request
 disclosure. Human review remains required under `ai-assisted-development.md`.
 
+## 2026-09-10 — Published PDF downloads
+
+Codex assisted with adding reader and print-booklet PDF downloads to the
+collection, copying the checked-in PDFs into the Pages artifact during the web
+build, and extending renderer coverage. Verification included contract checks,
+renderer tests, a web-only build, responsive browser review, and live download
+response checks. No PDF content or authored prose changed.
+
 ## 2026-09-10 — GitHub Pages collection MVP
 
 Codex assisted with the collection homepage, story-to-collection navigation,

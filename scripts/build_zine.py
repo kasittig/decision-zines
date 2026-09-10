@@ -580,11 +580,26 @@ def write_collection_index() -> Path:
         slug = manifest_path.parent.name
         title = str(manifest.get("title", slug))
         screen_count = len(manifest.get("screens", []))
+        download_dir = manifest_path.parent / "downloads"
+        download_links: list[str] = []
+        for suffix, label in (("reader", "Reader PDF"), ("booklet", "Print booklet")):
+            source_pdf = ROOT / "output" / "pdf" / f"{slug}-{suffix}.pdf"
+            if not source_pdf.is_file():
+                continue
+            download_dir.mkdir(exist_ok=True)
+            destination = download_dir / source_pdf.name
+            shutil.copy2(source_pdf, destination)
+            download_links.append(
+                f'<a class="download" href="{html.escape(slug, quote=True)}/downloads/'
+                f'{html.escape(source_pdf.name, quote=True)}" download>{label}</a>'
+            )
         entries.append(
             '<li class="story"><div class="story__number" aria-hidden="true">'
             f'{len(entries) + 1:02d}</div><div class="story__body"><h2>{html.escape(title)}</h2>'
             f'<p>{screen_count} steps · choices stay in your browser</p>'
-            f'<a class="start" href="{html.escape(slug, quote=True)}/">Start story</a></div></li>'
+            '<div class="story__actions">'
+            f'<a class="start" href="{html.escape(slug, quote=True)}/">Start story</a>'
+            f'{"".join(download_links)}</div></div></li>'
         )
     document = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'

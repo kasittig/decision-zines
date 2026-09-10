@@ -61,6 +61,10 @@ button { color:inherit; }
 .choice input:focus-visible + label { outline:3px solid var(--ink); outline-offset:3px; }
 .choice input:checked + label { color:var(--paper); background:var(--ink); }
 .choice input:checked + label .choice__letter { background:var(--paper); color:var(--ink); }
+.response-instruction { font-weight:700; }
+.free-response { display:block; margin:1.5rem 0 .5rem; font-weight:700; }
+textarea[data-free-response] { width:100%; min-height:8rem; resize:vertical; border:2px solid var(--ink); padding:.75rem; font:inherit; line-height:1.45; }
+textarea[data-free-response]:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
 .boundary { margin:1.75rem 0 0; padding:1rem 0 0; border-top:4px solid var(--ink); display:flex; gap:1rem; justify-content:space-between; align-items:center; }
 .commit { min-height:3rem; border:2px solid var(--ink); background:var(--ink); color:var(--paper); padding:.7rem 1rem; font-weight:700; cursor:pointer; }
 .commit:disabled { background:var(--quiet); color:var(--mid); border-color:var(--line); cursor:not-allowed; }
@@ -79,7 +83,7 @@ button { color:inherit; }
 .counter { font-size:.82rem; font-weight:700; white-space:nowrap; }
 .status { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
 button:focus-visible,a:focus-visible,summary:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
-@media (max-width:720px) {
+@media (max-width:960px) {
   .app { display:block; }
   .trail { position:static; height:auto; padding:.75rem 1rem; }
   .all-stories { margin-bottom:.65rem; }

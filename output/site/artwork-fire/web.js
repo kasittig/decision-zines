@@ -58,31 +58,48 @@
   document.querySelectorAll("[data-decision]").forEach(screen => {
     const id = screen.dataset.decision;
     const radios = [...screen.querySelectorAll('input[type="radio"]')];
+    const checkboxes = [...screen.querySelectorAll('input[type="checkbox"]')];
+    const choiceInputs = [...radios, ...checkboxes];
+    const freeResponse = screen.querySelector("[data-free-response]");
     const commit = screen.querySelector("[data-commit]");
     const committed = screen.querySelector("[data-committed]");
     const saved = state.choices[id];
     if (saved) {
-      const selected = radios.find(radio => radio.value === saved.label);
-      if (selected) selected.checked = true;
+      const savedValues = saved.values || [saved.label];
+      choiceInputs.forEach(input => { input.checked = savedValues.includes(input.value); });
+      if (freeResponse) freeResponse.value = saved.text;
       commit.textContent = "Update response";
       commit.disabled = true;
       committed.hidden = false;
       committed.textContent = `Committed: ${saved.label}`;
     }
-    radios.forEach(radio => radio.addEventListener("change", () => {
-      commit.disabled = Boolean(state.choices[id] && radio.value === state.choices[id].label);
+    choiceInputs.forEach(input => input.addEventListener("change", () => {
+      const selectedValues = choiceInputs.filter(item => item.checked).map(item => item.value);
+      const savedValues = state.choices[id] && (state.choices[id].values || [state.choices[id].label]);
+      commit.disabled = !selectedValues.length || Boolean(savedValues && selectedValues.join() === savedValues.join());
     }));
+    if (freeResponse) freeResponse.addEventListener("input", () => {
+      const response = freeResponse.value.trim();
+      commit.disabled = !response || Boolean(state.choices[id] && response === state.choices[id].text);
+    });
     commit.addEventListener("click", () => {
-      const selected = radios.find(radio => radio.checked);
-      if (!selected) return;
-      state.choices[id] = { label: selected.value, text: selected.dataset.text };
+      const selected = choiceInputs.filter(input => input.checked);
+      const response = freeResponse && freeResponse.value.trim();
+      if (!selected.length && !response) return;
+      state.choices[id] = selected.length
+        ? {
+            label: selected.map(input => input.value).join(", "),
+            text: selected.map(input => input.dataset.text).join("; "),
+            values: selected.map(input => input.value)
+          }
+        : { label: "Response", text: response };
       commit.textContent = "Update response";
       commit.disabled = true;
       committed.hidden = false;
-      committed.textContent = `Committed: ${selected.value}`;
+      committed.textContent = `Committed: ${state.choices[id].label}`;
       const screenIndex = screens.indexOf(screen);
       state.unlocked = Math.max(state.unlocked, screenIndex + 1);
-      announce(`Response ${selected.value} submitted. Showing what the record says.`);
+      announce(`${state.choices[id].label} submitted. Showing what the record says.`);
       show(screenIndex + 1);
     });
   });

@@ -240,14 +240,22 @@ def add_running_timeline(reader_path: Path, labels: list[str], decision_topics: 
 def options_html(lines: list[str]) -> tuple[str, list[str]]:
     intro: list[str] = []
     options: list[tuple[str, str]] = []
+    checklist: list[str] = []
     for para in paragraphs(lines):
         match = OPTION.match(para)
         if match:
             options.append((match.group(1), match.group(2)))
+        elif para.startswith("- "):
+            checklist.append(para[2:])
         else:
             intro.append(para)
+    if checklist:
+        rendered = "".join(f"<li>☐ {inline(item)}</li>" for item in checklist)
+        return "".join(f"<p>{inline(x)}</p>" for x in intro) + f'<ul class="print-checklist">{rendered}</ul>', checklist
     if not options:
-        raise ValueError("WHAT DO YOU DO? requires A./B./C. option paragraphs")
+        if not intro:
+            raise ValueError("WHAT DO YOU DO? requires options or an explicit free-response instruction")
+        return body_html(intro, evidence=False) + '<div class="free-response-line"></div>', []
     rendered = "".join(f'<li value="{ord(label)-64}">{inline(text)}</li>' for label, text in options)
     return "".join(f"<p>{inline(x)}</p>" for x in intro) + f'<ol type="A">{rendered}</ol>', [x[1] for x in options]
 
@@ -341,14 +349,39 @@ def render(title: str, sections: list[Section]) -> str:
 def web_options_html(lines: list[str], decision_id: str) -> str:
     intro: list[str] = []
     options: list[tuple[str, str]] = []
+    checklist: list[str] = []
     for para in paragraphs(lines):
         match = OPTION.match(para)
         if match:
             options.append((match.group(1), match.group(2)))
+        elif para.startswith("- "):
+            checklist.append(para[2:])
         else:
             intro.append(para)
+    if checklist:
+        rendered: list[str] = []
+        for index, text in enumerate(checklist):
+            label = chr(65 + index)
+            input_id = f"{decision_id}-option-{label.lower()}"
+            rendered.append(
+                f'<li class="choice"><input type="checkbox" id="{input_id}" '
+                f'name="{decision_id}" value="{label}" data-text="{html.escape(text, quote=True)}">'
+                f'<label for="{input_id}"><span class="choice__letter">{label}</span>'
+                f'<span>{inline(text)}</span></label></li>'
+            )
+        return (
+            "".join(f"<p>{inline(item)}</p>" for item in intro)
+            + '<p class="response-instruction">Select all that apply.</p>'
+            + '<ul class="choice-list">' + "".join(rendered) + "</ul>"
+        )
     if not options:
-        raise ValueError("WHAT DO YOU DO? requires A./B./C. option paragraphs")
+        if not intro:
+            raise ValueError("WHAT DO YOU DO? requires options or an explicit free-response instruction")
+        return (
+            body_html(intro, evidence=False)
+            + f'<label class="free-response" for="{decision_id}-response">Your response</label>'
+            + f'<textarea id="{decision_id}-response" name="{decision_id}" data-free-response rows="5"></textarea>'
+        )
     rendered: list[str] = []
     for label, text in options:
         input_id = f"{decision_id}-option-{label.lower()}"
@@ -515,7 +548,7 @@ def render_web(title: str, sections: list[Section], slug: str) -> tuple[str, dic
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
         f'<title>{html.escape(title)} · Playable edition</title><link rel="icon" href="../favicon.svg">'
-        '<link rel="stylesheet" href="web.css"></head>'
+        '<link rel="stylesheet" href="web.css?v=2"></head>'
         f'<body data-edition="{html.escape(slug, quote=True)}"><a class="skip-link" href="#reader">Skip to the zine</a>'
         '<div class="app"><aside class="trail" aria-label="Reading progress">'
         '<a class="all-stories" href="../">All stories</a>'
@@ -527,7 +560,7 @@ def render_web(title: str, sections: list[Section], slug: str) -> tuple[str, dic
         '<span class="counter" data-counter></span><button type="button" data-next>Next</button></nav>'
         '<div class="status" role="status" aria-live="polite" data-status></div>'
         f'<script type="application/json" id="zine-manifest">{manifest_json}</script>'
-        '<script src="web.js"></script></body></html>'
+        '<script src="web.js?v=2"></script></body></html>'
     )
     return document, manifest
 
@@ -610,7 +643,7 @@ def write_collection_index() -> Path:
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>Decision Zines</title><link rel="icon" href="favicon.svg">'
-        '<link rel="stylesheet" href="collection.css"></head><body>'
+        '<link rel="stylesheet" href="collection.css?v=2"></head><body>'
         '<a class="skip-link" href="#stories">Skip to stories</a><header class="masthead">'
         '<p class="masthead__mark" aria-hidden="true">?</p><div><h1>Decision Zines</h1>'
         '<p>Choose what you would do. Commit to it. Then see what the record shows.</p></div></header>'

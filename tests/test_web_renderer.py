@@ -75,6 +75,17 @@ class WebRendererTests(unittest.TestCase):
             finally:
                 BUILD.ROOT = original_root
 
+    def test_safety_story_uses_checklist_and_yes_no_responses(self):
+        title, sections = BUILD.parse(ROOT / "fixtures" / "unplanned-fire-safety" / "source.md")
+        document, manifest = BUILD.render_web(title, sections, "unplanned-fire-safety")
+        self.assertEqual([], BUILD.validate_web_manifest(manifest))
+        self.assertNotIn("data-free-response", document)
+        self.assertEqual(6, document.count('type="checkbox"'))
+        self.assertIn("Can Safety still close the operational loop?", document)
+        self.assertIn("Why was an unplanned burn possible?", document)
+        self.assertNotIn("DEVELOPMENT NOTES", document)
+        self.assertNotIn("TEACHING LESSON", document)
+
     def test_collection_index_lists_built_stories_with_relative_links(self):
         with tempfile.TemporaryDirectory(dir=ROOT / "output") as temporary:
             original_root = BUILD.ROOT

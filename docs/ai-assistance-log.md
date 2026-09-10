@@ -3,6 +3,15 @@
 Material AI-assisted work is recorded here in addition to pull-request
 disclosure. Human review remains required under `ai-assisted-development.md`.
 
+## 2026-09-10 — Fire, Safety & Systems story
+
+Codex assisted with adapting the supplied Safety narrative to the current
+heading-based proof-of-concept renderer, replacing the distinctive animal label
+with neutral artwork and incident references, and generating a local web
+preview. The narrative order, historical claims, uncertainty, and unpublished
+development-note boundary were preserved. Human editorial review is required
+for the de-identification decision and published claims.
+
 ## 2026-09-10 — Published PDF downloads
 
 Codex assisted with adding reader and print-booklet PDF downloads to the

@@ -3,7 +3,7 @@
 ## Project status
 
 The project is an early, contract-first proof of concept with a working print
-and static web renderer for the Goat Board fixture. The current product focus is
+and static web renderer for the Artwork Fire fixture. The current product focus is
 an MVP public web collection: make the existing playable edition easy to find,
 publish, and navigate without expanding the canonical publishing pipeline.
 

@@ -29,7 +29,7 @@ You must decide what the evidence establishes, what action it justifies, what au
 
 ## DECISION 1 — WHAT DOES THE EVIDENCE ACTUALLY ESTABLISH?
 
-**DOCUMENTED:** Before the event, the artist’s grant application explicitly modeled the project on a famous goat sculpture repeatedly destroyed by unauthorized burning. The proposal said the work was intended to provoke discussion about temporary art, authentic interaction, “the contexts where arson is participation,” and how people divine artistic intent.
+**DOCUMENTED:** Before the event, the artist’s grant application explicitly engaged with the idea of artwork being destroyed by unauthorized burning. The proposal said the work was intended to provoke discussion about temporary art, authentic interaction, “the contexts where arson is participation,” and how people divine artistic intent.
 
 **DOCUMENTED:** The same proposal also stated that there were no plans to burn the artwork.
 
@@ -159,7 +159,7 @@ Discipline should not silently punish a more serious allegation than the evidenc
 
 While the disciplinary process was still active, participants turned the controversy into satire and fiction.
 
-**RECOLLECTED:** One contributor, who was also part of Safety leadership, later described writing Goat-related fiction to move the conversation away from repeatedly adjudicating whether the artwork was good or bad and toward processing the conflict, laughing about it, and getting on with making the next event happen.
+**RECOLLECTED:** One contributor, who was also part of Safety leadership, later described writing incident-related fiction to move the conversation away from repeatedly adjudicating whether the artwork was good or bad and toward processing the conflict, laughing about it, and getting on with making the next event happen.
 
 The fiction is not evidence of who ignited the artwork or what the artist secretly intended. It is evidence that participants can process unresolved events through channels other than formal governance.
 

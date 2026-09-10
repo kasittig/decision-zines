@@ -81,12 +81,15 @@ class WebRendererTests(unittest.TestCase):
             try:
                 destination = Path(temporary)
                 (destination / "output" / "site" / "artwork-fire").mkdir(parents=True)
+                (destination / "output" / "pdf").mkdir(parents=True)
                 (destination / "renderer").mkdir()
                 (destination / "assets" / "fonts").mkdir(parents=True)
                 (destination / "renderer" / "collection.css").write_text("body {}", encoding="utf-8")
                 (destination / "renderer" / "favicon.svg").write_text("<svg></svg>", encoding="utf-8")
                 for font in ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf"):
                     (destination / "assets" / "fonts" / font).write_bytes(b"font")
+                for suffix in ("reader", "booklet"):
+                    (destination / "output" / "pdf" / f"artwork-fire-{suffix}.pdf").write_bytes(b"%PDF-test")
                 manifest = {"title": self.title, "screens": self.manifest["screens"]}
                 (destination / "output" / "site" / "artwork-fire" / "manifest.json").write_text(
                     json.dumps(manifest), encoding="utf-8"
@@ -96,6 +99,10 @@ class WebRendererTests(unittest.TestCase):
                 document = index.read_text(encoding="utf-8")
                 self.assertIn('href="artwork-fire/"', document)
                 self.assertIn("Start story", document)
+                self.assertIn('href="artwork-fire/downloads/artwork-fire-reader.pdf" download', document)
+                self.assertIn('href="artwork-fire/downloads/artwork-fire-booklet.pdf" download', document)
+                self.assertTrue((destination / "output" / "site" / "artwork-fire" / "downloads" / "artwork-fire-reader.pdf").is_file())
+                self.assertTrue((destination / "output" / "site" / "artwork-fire" / "downloads" / "artwork-fire-booklet.pdf").is_file())
                 self.assertNotIn("localStorage", document)
             finally:
                 BUILD.ROOT = original_root

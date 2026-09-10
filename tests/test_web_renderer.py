@@ -33,6 +33,13 @@ class WebRendererTests(unittest.TestCase):
         self.assertNotIn("DECISION BOUNDARY", self.document)
         self.assertIn(">Back</button>", self.document)
 
+    def test_story_links_to_collection_and_completion_actions(self):
+        self.assertIn('<a class="all-stories" href="../">All stories</a>', self.document)
+        self.assertIn(">Replay story</button>", self.document)
+        self.assertIn(">Return to all stories</a>", self.document)
+        self.assertIn('<details class="trail__contents" open>', self.document)
+        self.assertIn("<summary>Contents and progress</summary>", self.document)
+
     def test_manifest_is_valid_json_in_html(self):
         opening = '<script type="application/json" id="zine-manifest">'
         payload = self.document.split(opening, 1)[1].split("</script>", 1)[0]
@@ -65,6 +72,31 @@ class WebRendererTests(unittest.TestCase):
                 (site / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
                 self.assertTrue((site / "index.html").is_file())
                 self.assertTrue((site / "manifest.json").is_file())
+            finally:
+                BUILD.ROOT = original_root
+
+    def test_collection_index_lists_built_stories_with_relative_links(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / "output") as temporary:
+            original_root = BUILD.ROOT
+            try:
+                destination = Path(temporary)
+                (destination / "output" / "site" / "artwork-fire").mkdir(parents=True)
+                (destination / "renderer").mkdir()
+                (destination / "assets" / "fonts").mkdir(parents=True)
+                (destination / "renderer" / "collection.css").write_text("body {}", encoding="utf-8")
+                (destination / "renderer" / "favicon.svg").write_text("<svg></svg>", encoding="utf-8")
+                for font in ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf"):
+                    (destination / "assets" / "fonts" / font).write_bytes(b"font")
+                manifest = {"title": self.title, "screens": self.manifest["screens"]}
+                (destination / "output" / "site" / "artwork-fire" / "manifest.json").write_text(
+                    json.dumps(manifest), encoding="utf-8"
+                )
+                BUILD.ROOT = destination
+                index = BUILD.write_collection_index()
+                document = index.read_text(encoding="utf-8")
+                self.assertIn('href="artwork-fire/"', document)
+                self.assertIn("Start story", document)
+                self.assertNotIn("localStorage", document)
             finally:
                 BUILD.ROOT = original_root
 

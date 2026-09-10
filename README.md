@@ -1,6 +1,6 @@
 # Decision-Based Teaching Zine Generator
 
-[![Validate contracts](https://github.com/kasittig/decision-based-teaching-zine/actions/workflows/validate.yml/badge.svg)](https://github.com/kasittig/decision-based-teaching-zine/actions/workflows/validate.yml)
+[![Validate contracts](https://github.com/kasittig/decision-zines/actions/workflows/validate.yml/badge.svg)](https://github.com/kasittig/decision-zines/actions/workflows/validate.yml)
 
 Turn a structured teaching scenario into two reader experiences:
 
@@ -15,13 +15,25 @@ work and validation.
 
 ## Try the example
 
-The repository includes prebuilt output, so you can explore it without installing anything:
+Visit the published collection at
+[kasittig.github.io/decision-zines/](https://kasittig.github.io/decision-zines/),
+or explore the checked-in output without installing anything:
 
+- Open [`output/site/index.html`](output/site/index.html) for the collection homepage.
 - Open [`output/site/artwork-fire/index.html`](output/site/artwork-fire/index.html) in a browser for the playable edition.
 - Open [`output/pdf/artwork-fire-reader.pdf`](output/pdf/artwork-fire-reader.pdf) for the reader PDF.
 - Print [`output/pdf/artwork-fire-booklet.pdf`](output/pdf/artwork-fire-booklet.pdf) at 100% scale, landscape, duplex, flipping on the short edge.
 
 The web edition runs entirely in the browser. Choices stay in local browser storage and are not transmitted.
+
+To preview the collection through a local web server after building it:
+
+```bash
+python -m http.server 8000 --directory output/site
+```
+
+Then open `http://localhost:8000/`. Serving the directory, rather than opening
+the HTML file directly, matches GitHub Pages routing more closely.
 
 ## Build it locally
 
@@ -46,14 +58,16 @@ Build the included Artwork Fire example:
 python scripts/build_zine.py fixtures/artwork-fire/source.md --slug artwork-fire
 ```
 
-This writes:
+This writes the collection homepage and story website alongside the print output:
 
 ```text
 output/
 ├── html/artwork-fire-reader.html   # print-oriented intermediate HTML
 ├── pdf/artwork-fire-reader.pdf     # half-letter reader PDF
 ├── pdf/artwork-fire-booklet.pdf    # imposed Letter-size booklet PDF
-└── site/artwork-fire/              # portable playable website
+└── site/
+    ├── index.html                  # collection homepage
+    └── artwork-fire/               # portable playable website
 ```
 
 To build only the website—without Chrome or the PDF dependencies—run:
@@ -71,6 +85,14 @@ python scripts/build_zine.py fixtures/artwork-fire/source.md \
   --slug artwork-fire \
   --chrome /path/to/chrome
 ```
+
+## Publish the website
+
+The `Publish GitHub Pages` workflow validates the contracts, runs the renderer
+tests, rebuilds every included web edition, and deploys `output/site/` after a
+push to `main`. GitHub Pages must use **GitHub Actions** as its source in the
+repository settings. The workflow can also be run manually from the Actions
+tab.
 
 ## Validate changes
 

@@ -7,8 +7,13 @@
   const counter = document.querySelector("[data-counter]");
   const status = document.querySelector("[data-status]");
   const trail = [...document.querySelectorAll("[data-trail-step]")];
+  const trailContents = document.querySelector(".trail__contents");
   const storageKey = `zine:${root.dataset.edition}:progress`;
   let state = { index: 0, unlocked: 0, choices: {} };
+
+  if (trailContents && window.matchMedia("(max-width: 720px)").matches) {
+    trailContents.removeAttribute("open");
+  }
 
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey));

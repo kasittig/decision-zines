@@ -32,4 +32,4 @@ The [rendering environment](rendering-environment.md), [design system](design-sy
 
 The root [README](../README.md#contract-precedence) defines normative precedence. The visual prototype is reference material only; it cannot override semantic, pagination, provenance, or validation contracts.
 
-The project is still staged by milestone. Contracts and the working Goat Board renderer are present today. A production canonical Markdown parser, Google Docs adapter, packaged CLI, and full editorial workflow remain roadmap work unless their status is explicitly updated.
+The project is still staged by milestone. Contracts and the working Artwork Fire renderer are present today. A production canonical Markdown parser, Google Docs adapter, packaged CLI, and full editorial workflow remain roadmap work unless their status is explicitly updated.

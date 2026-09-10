@@ -17,8 +17,8 @@ SPEC.loader.exec_module(BUILD)
 class WebRendererTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.title, cls.sections = BUILD.parse(ROOT / "fixtures" / "goat-board" / "source.md")
-        cls.document, cls.manifest = BUILD.render_web(cls.title, cls.sections, "goat-board")
+        cls.title, cls.sections = BUILD.parse(ROOT / "fixtures" / "artwork-fire" / "source.md")
+        cls.document, cls.manifest = BUILD.render_web(cls.title, cls.sections, "artwork-fire")
 
     def test_every_reveal_immediately_follows_its_decision(self):
         self.assertEqual([], BUILD.validate_web_manifest(self.manifest))
@@ -60,7 +60,7 @@ class WebRendererTests(unittest.TestCase):
                 destination = Path(temporary)
                 site = destination / "site"
                 site.mkdir()
-                document, manifest = BUILD.render_web(self.title, self.sections, "goat-board")
+                document, manifest = BUILD.render_web(self.title, self.sections, "artwork-fire")
                 (site / "index.html").write_text(document, encoding="utf-8")
                 (site / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
                 self.assertTrue((site / "index.html").is_file())
